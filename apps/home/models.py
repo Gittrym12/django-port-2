@@ -24,6 +24,7 @@ class ProsedurM(models.Model):
 
 
 class Visitor(models.Model):
+    id = models.AutoField(primary_key=True)
     timestamp = models.DateTimeField(default=timezone.now)
     ip_address = models.GenericIPAddressField()
     
@@ -47,7 +48,7 @@ class JadwalBusM(models.Model):
     titikStart = models.CharField(max_length=30)
     plant = models.CharField(max_length=2)
     via = models.CharField(max_length=20)
-    seat = models.IntegerField(max_length=2)
+    seat = models.IntegerField()
     shift1 = models.CharField(max_length=5, null=True)
     shift2 = models.CharField(max_length=5, null=True)
     shift3 = models.CharField(max_length=5, null=True)
