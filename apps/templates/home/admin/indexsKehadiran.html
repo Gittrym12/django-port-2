@@ -1,0 +1,81 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-white pb-6">
+      <div class="container-fluid">
+        
+        <div class="header-body">
+          <div class="row py-4">
+            <div class="col-lg-12" style="text-align: right;">           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6 bg-white">
+      <row>
+        <div class="col-md-10 mx-auto">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                  <div class="table-responsive">
+                      <h1 class="table-label">Data Points</h1>
+                      <table class="table">
+                          <thead class="table-head-bg">
+                              <tr>
+                                  <th>Date</th>
+                                  <th>Value</th>
+                                  <th>Action</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% for dp in data_points %}
+                              <tr>
+                                  <td>{{ dp.date }}</td>
+                                  <td>{{ dp.value }}</td>
+                                  <td>
+                                      <div class="d-flex">
+                                          <a href="{% url 'update_attendance' dp.id %}" class="btn btn-info mb-1">
+                                              <i class="fas fa-edit"></i>
+                                          </a>
+                                          <form method="post" action="{% url 'delete_attendance' dp.id %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger">
+                                                  <i class="fas fa-trash"></i>
+                                              </button>
+                                          </form>
+                                      </div>
+                                  </td>
+                              </tr>
+                              {% empty %}
+                              <tr>
+                                  <td colspan="3">No Data Points available.</td>
+                              </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+                      <a href="{% url 'create_attendance' %}" class="btn btn-success mt-3">
+                          <i class="fas fa-edit"></i>
+                      </a>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </row>
+      <a id="scrollToTop" href="#" title="Go to top"><i class="ni ni-bold-up"></i></a>
+      
+  
+    </div>
+    {% include "includes/footer.html" %}
+
+{% endblock content %}

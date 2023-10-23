@@ -1,0 +1,91 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-white pb-6">
+      <div class="container-fluid">
+        
+        <div class="header-body">
+          <div class="row py-4">
+            <div class="col-lg-12" style="text-align: right;">           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6 bg-white">
+      <row>
+        <div class="col-md-10 mx-auto">
+          <div class="card card-stats">
+            <div class="card-body">
+              <div class="row">
+                <div class="table-responsive">
+                  <h1 class="table-label">Jadwal Bus</h1>
+                  <table class="table">
+                      <thead class="table-head-bg">
+                          <tr>
+                              <th>Titik Start</th>
+                              <th>Via</th>
+                              <th>Seat</th>
+                              <th>Shift 1</th>
+                              <th>Shift 2</th>
+                              <th>Shift 3</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for form in forms %}
+                            {% if form.plant == "1" %}
+                              <tr>
+                                  <td>{{ form.titikStart }}</td>
+                                  <td>{{ form.via }}</td>
+                                  <td>{{ form.seat }}</td>
+                                  <td>{{ form.shift1 }}</td>
+                                  <td>{{ form.shift2 }}</td>
+                                  <td>{{ form.shift3 }}</td>
+                                  <td>
+                                      <div class="d-flex">
+                                          <a href="{% url 'jadwal_bus_update' form.pk %}" class="btn btn-info mb-1">
+                                              <i class="fas fa-edit"></i>
+                                          </a>
+                                          <form method="post" action="{% url 'jadwal_bus_delete' form.pk %}">
+                                              {% csrf_token %}
+                                              <button type="submit" class="btn btn-danger">
+                                                  <i class="fas fa-trash"></i>
+                                              </button>
+                                          </form>
+                                      </div>
+                                  </td>
+                              </tr>
+                              {% empty %}
+                              <tr>
+                                  <td colspan="8">No Jadwal Bus available.</td>
+                              </tr>
+                            {% endif %}
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  <a href="{% url 'jadwal_bus_create' %}" class="btn btn-success mt-3">
+                      <i class="fas fa-edit"></i>
+                  </a>
+                </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </row>
+      <a id="scrollToTop" href="#" title="Go to top"><i class="ni ni-bold-up"></i></a>
+      
+  
+    </div>
+    {% include "includes/footer.html" %}
+
+{% endblock content %}

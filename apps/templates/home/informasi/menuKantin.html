@@ -1,0 +1,90 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="header bg-white pb-6">
+      <div class="container-fluid">
+        
+        <div class="header-body">
+          <div class="row py-4">
+            <div class="col-lg-12" style="text-align: right;">           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <div class="container-fluid mt--6 bg-white">
+      <div class="row" style="margin-bottom: 190px;">
+        <div class="col-md-12 mx-auto">
+          <div class="card card-stats">
+            <div class="card-body">
+              <h1 class="table-label">Menu Makan Hari ini / <span id="currentDate"></span></h1>
+              <div class="table-responsive">
+                <table class="table align-items-center table-flush">
+                  <thead class="table-head-bg">
+                    <tr>
+                      <th scope="col" class="sort" data-sort="name">Pilihan</th>
+                      <th scope="col" class="sort" data-sort="name">Breakfast</th>
+                      <th scope="col" class="sort" data-sort="name">Shift3</th>
+                      <th scope="col" class="sort" data-sort="name">Shift1</th>
+                      <th scope="col" class="sort" data-sort="name">Shift2</th>
+                    </tr>
+                  </thead>
+                  <tbody class="list">
+                    {% for entry in data %}
+                    <tr>
+                      <td class="budget">
+                        {{ entry.Pilihan }}
+                      </td>
+                      <td class="budget">
+                        {{ entry.Breakfast }}
+                      </td>
+                      <td class="budget">
+                        {{ entry.Shift3 }}
+                      </td>
+                      <td class="budget">
+                        {{ entry.Shift1 }}
+                      </td>
+                      <td class="budget">
+                        {{ entry.Shift2 }}
+                      </td>
+                    </tr>   
+                    {% endfor %}    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <script>
+              var currentDateElement = document.getElementById("currentDate");
+              var today = new Date();
+              var options = { day: 'numeric', month: 'long', year: 'numeric' };
+              var dateLocale = today.toLocaleDateString('id-ID', options); 
+              currentDateElement.textContent = dateLocale;
+            </script>
+          </div>
+        </div>
+      </div>
+      <a id="scrollToTop" href="#" title="Go to top"><i class="ni ni-bold-up"></i></a>
+  
+  
+    </div>
+    {% include "includes/footer.html" %}
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}
+
+  <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

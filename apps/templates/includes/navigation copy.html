@@ -1,0 +1,187 @@
+
+<nav class="navbar navbar-top navbar-expand navbar-white bg-white border-bottom">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="col-md-4">
+        <img src="/static/assets/img/brand/hrdportal4.png" width="200" alt="Deskripsi Gambar" >
+      </div>
+      <!-- Navbar links -->
+      <ul class="navbar-nav align-items-center  ml-md-auto ">
+        <li class="nav-item d-xl-none">
+          
+          <!-- Sidenav toggler -->
+          <div class="pr-3 sidenav-toggler sidenav-toggler-dark" data-action="sidenav-pin" data-target="#sidenav-main">
+            
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item d-sm-none">
+          <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
+            <i class="ni ni-zoom-split-in"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <h4><a class="nav-link text-primary" href="{% url 'home' %}">Beranda</a></h4>
+        </li>
+        <li class="nav-item">
+          <h4><a class="nav-link text-primary" href="{% url 'timKami' %}">Tim kami</a></h4>
+        </li>
+        <li class="nav-item">
+          <h4><a class="nav-link text-primary" href="{% url 'form_list_prosedur' %}">Prosedur</a></h4>
+        </li>
+        <li class="nav-item">
+          <h4><a class="nav-link text-primary" href="{% url 'form_list' %}">Form</a></h4>
+        </li>
+        
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <h4 class="text-primary">Form</h4>
+          </a>
+          <div class="dropdown-menu dropdown-menu-md  dropdown-menu-right  py-0 overflow-hidden">
+            -- List group --
+            <div class="list-group list-group-flush">
+              <a href="home/list/" class="list-group-item list-group-item-action">
+                <div class="row align-items-center">
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h4 class="mb-0 text-sm">Form legal</h4>
+                      </div>
+                      
+                      <div class="text-right text-muted">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="home/list/" class="list-group-item list-group-item-action">
+                <div class="row align-items-center">
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h4 class="mb-0 text-sm">Form training</h4>
+                      </div>
+                      
+                      <div class="text-right text-muted">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>-->
+        <!--
+        <li class="nav-item">
+          <h4><a class="nav-link text-primary" href="{% url 'informasi' %}">Informasi</a></h4>
+        </li>
+        -->
+
+
+        <li class="nav-item dropdown ">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <h4 class="text-primary">Informasi</h4>
+          </a>
+          <div class="dropdown-menu dropdown-menu-md  dropdown-menu-right  py-0 overflow-hidden">
+            <div class="list-group list-group-flush">
+          
+              <a href="{% url 'pkb' %}" class="list-group-item list-group-item-action" >
+                <div class="row align-items-center">
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="mb-0 text-sm">PKB</h4>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              
+              <a href="{% url 'struktur_organisasi' %}" class="list-group-item list-group-item-action" >
+                <div class="row align-items-center">
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="mb-0 text-sm">Struktur Organisasi</h4>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              <a href="{% url 'informasi' %}" class="list-group-item list-group-item-action" >
+                <div class="row align-items-center">
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="mb-0 text-sm">Pengumuman</h4>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              <a href="{% url 'informasi' %}" class="list-group-item list-group-item-action" >
+                <div class="row align-items-center">
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h4 class="mb-0 text-sm">Jadwal Bus</h4>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+            </div>
+          </div>
+        </li>
+
+
+        <li class="nav-item dropdown ">
+          <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <h4 class="text-primary">Link portal</h4>
+          </a>
+          <div class="dropdown-menu dropdown-menu-md  dropdown-menu-right  py-0 overflow-hidden">
+            
+            <div class="list-group list-group-flush">
+              <a href="#!" class="list-group-item list-group-item-action">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <!-- Avatar -->
+                    <img alt="Image placeholder" src="/static/assets/img/brand/legal-document.png" class="avatar rounded-circle">
+                  </div>
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h4 class="mb-0 text-sm">Legal portal</h4>
+                      </div>
+                      
+                      <div class="text-right text-muted">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+              <a href="http://yps0010/ESS_YPMI_NEW/static/login.html" class="list-group-item list-group-item-action" target="_blank">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <!-- Avatar -->
+                    <img alt="Image placeholder" src="/static/assets/img/brand/ess.png" class="avatar rounded-circle">
+                  </div>
+                  <div class="col ml--2">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                        <h4 class="mb-0 text-sm">ESS</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>              
+            </div>
+          </div>
+        </li>
+        <li class="nav-item">
+          <h4><a class="nav-link text-primary" href="{% url 'kontak' %}">Kontak</a></h4>
+        </li>
+        
+    </div>
+  </div>
+</nav>
