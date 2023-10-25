@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-
 class Formmodel(models.Model):
     id = models.AutoField(primary_key=True)
     nama_form = models.CharField(max_length=100)
@@ -22,17 +21,12 @@ class ProsedurM(models.Model):
     def __str__(self):
         return self.nama_prosedur
 
-
 class Visitor(models.Model):
     id = models.AutoField(primary_key=True)
     timestamp = models.DateTimeField(default=timezone.now)
     ip_address = models.GenericIPAddressField()
-    
-
     def __str__(self):
         return f"{self.ip_address} - {self.timestamp}"
-
-
 class GalleryKegiatanm(models.Model):
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
@@ -41,7 +35,6 @@ class GalleryKegiatanm(models.Model):
 
     def __str__(self):
         return self.title
-    
 
 class JadwalBusM(models.Model):
     id = models.AutoField(primary_key=True)
@@ -60,3 +53,9 @@ class DataPoint(models.Model):
 
     def __str__(self):
         return f"{self.date} - {self.value}"
+
+class menuKantinM(models.Model):
+    id = models.AutoField(primary_key=True)
+    nama_file = models.CharField(max_length=35)
+    file = models.FileField(upload_to='uploads/manukantin')
+    uploaded_at = models.DateTimeField(auto_now_add=True)

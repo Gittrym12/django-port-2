@@ -1,5 +1,6 @@
 from django import forms
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM, menuKantinM
+from django.core.exceptions import ValidationError
 
 class FormmodelForm(forms.ModelForm):
     class Meta:
@@ -29,3 +30,14 @@ class JadwalBusF(forms.ModelForm):
         model = JadwalBusM
         fields = "__all__"
 
+
+def validate_file_extension(value):
+    if not value.name.endswith('.xlsx') and not value.name.endswith('.csv'):
+        raise ValidationError('Only XLSX or CSV files are allowed.')
+
+class menuKantinF(forms.ModelForm):
+    class Meta:
+        model = menuKantinM
+        fields = "__all__"
+
+    file = forms.FileField(validators=[validate_file_extension])

@@ -4,13 +4,17 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM
-from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM, menuKantinM
+from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF, menuKantinF
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from datetime import datetime, timedelta
 import pandas as pd
 import json
+import os
+import glob
+
+
 
 
 def get_date_range():
@@ -229,6 +233,92 @@ def dataUlangTahun(request):
 
 
 ##################################################### MENU KANTIN #####################################################
+def upload_file(request):
+    if request.method == 'POST':
+        form = menuKantinF(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('menuKantin')
+    else:
+        form = menuKantinF()
+    return render(request, 'home/admin/create_menukantin.html', {'form': form})
+
+def menu_list(request):
+    menu_items = menuKantinM.objects.all()
+    return render(request, 'home/admin/menu_list.html', {"menu_items": menu_items})
+
+def menuKantin(request):
+    # Get the path to the most recently uploaded CSV file in the 'core/media' directory
+    csv_file_path = get_most_recent_csv_file()
+    
+    if csv_file_path:
+        # Read the CSV file
+        df = pd.read_csv(csv_file_path, delimiter=';')
+
+        # Convert the 'Date' column to a datetime object with the correct format
+        df['Date'] = pd.to_datetime(df['Date'], format='%d/%m/%Y')
+
+        # Get today's date and format it as 'dd/mm/yy' to filter the data
+        today_date = datetime.now().strftime('%d/%m/%y')
+
+        # Filter the data based on today's date
+        filtered_data = df[df['Date'].dt.strftime('%d/%m/%y') == today_date]
+
+        # Create a list of dictionaries containing the data
+        data = [{'Date': row['Date'].strftime('%d/%m/%Y'),
+                 'Pilihan': row['PILIHAN'],
+                 'Breakfast': row['BREAKFAST'],
+                 'Shift3': row['SHIFT 3'],
+                 'Shift1': row['SHIFT 1'],
+                 'Shift2': row['SHIFT 2']} for _, row in filtered_data.iterrows()]
+
+        return render(request, 'home/informasi/menuKantin.html', {'data': data})
+    else:
+        # Handle the case where no CSV file is found
+        return render(request, 'no_data.html')
+
+def get_most_recent_csv_file():
+    # Get a list of CSV files in the 'core/media' directory and subdirectories
+    csv_files = glob.glob('core/media/**/*.csv', recursive=True)
+    
+    # Sort the list of files by modification time (most recent first)
+    csv_files.sort(key=os.path.getmtime, reverse=True)
+
+    # Check if any CSV files were found
+    if csv_files:
+        # Return the path to the most recently modified CSV file
+        return csv_files[0]
+    else:
+        return None
+    
+def delete_file(request, file_id):
+    try:
+        # Retrieve the uploaded file by its ID
+        uploaded_file = menuKantinM.objects.get(id=file_id)
+        file_path = uploaded_file.file.path
+
+        # Delete the file from the file system
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        # Delete the file from the database
+        uploaded_file.delete()
+
+        return redirect('menu_list')  # Redirect to the menu list page after successful deletion
+    except menuKantinM.DoesNotExist:
+        return redirect('error')  # Handle the case where the file doesn't exist
+    
+def delete_menu(request, pk):
+    menu_items = get_object_or_404(menuKantinM, pk=pk)
+    if request.method == 'POST':
+        menu_items.delete()
+        return redirect('menu_list')  # Redirect to the admin list view
+    return render(request, 'home/admin/kegiatan_delete.html', {'menu_items': menu_items})
+
+
+
+
+''''
 def menuKantin(request):
     csv_file_path = 'core/media/kantin.csv'
     df = pd.read_csv(csv_file_path, delimiter=';')
@@ -250,7 +340,7 @@ def menuKantin(request):
              'Shift1': row['SHIFT 1'],
              'Shift2': row['SHIFT 2']} for _, row in filtered_data.iterrows()]
 
-    return render(request, 'home/informasi/menuKantin.html', {'data': data})
+    return render(request, 'home/informasi/menuKantin.html', {'data': data})'''
 ##################################################### END MENU KANTIN #####################################################
 
 
