@@ -38,6 +38,7 @@ class GalleryKegiatanm(models.Model):
 
 class JadwalBusM(models.Model):
     id = models.AutoField(primary_key=True)
+    nobus = models.CharField(max_length=10, null=True)
     titikStart = models.CharField(max_length=30)
     plant = models.CharField(max_length=2)
     via = models.CharField(max_length=20)

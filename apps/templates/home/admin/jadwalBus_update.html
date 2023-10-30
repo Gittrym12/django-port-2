@@ -29,6 +29,10 @@
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
+                  <label for="nobus">No Bus:</label>
+                  <input type="text" class="form-control" id="nobus" name="nobus" value="{{ form.nobus.value }}" required placeholder="Enter No Bus">
+              </div>
+                <div class="form-group">
                     <label for="titikStart">titikStart:</label>
                     <input type="text" class="form-control" id="titikStart" name="titikStart" value="{{ form.titikStart.value }}" required placeholder="Enter titikStart">
                 </div>

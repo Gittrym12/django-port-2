@@ -28,24 +28,26 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12 mx-auto"><h1 class="table-label text-center">Jadwal Bus YPMI</h1></div>
-                
+                <!-------------------- TABLE BUS PLANT 1 -------------------->
                 <div class="table-responsive">
-                  <h1 class="table-label">Plant 1</h1>
+                  <h1 class="table-label">Jadwal Bus Jemputan Plant 1</h1>
                   <table class="table">
                       <thead class="table-head-bg">
                           <tr>
+                              <th>No</th>
                               <th>Titik Start</th>
                               <th>Via</th>
                               <th>Seat</th>
-                              <th>Shift 1</th>
-                              <th>Shift 2</th>
-                              <th>Shift 3</th>
+                              <th>Shift-1</th>
+                              <th>Shift-2</th>
+                              <th>Shift-3</th>
                           </tr>
                       </thead>
                       <tbody>
                           {% for form in forms %}
                             {% if form.plant == "1" %}
                               <tr>
+                                <td>{{ form.nobus }}</td>
                                 <td>{{ form.titikStart }}</td>
                                 <td>{{ form.via }}</td>
                                 <td>{{ form.seat }}</td>
@@ -61,10 +63,87 @@
                           {% endfor %}
                       </tbody>
                     </table>
-                    <a href="{% url 'jadwal_bus_create' %}" class="btn btn-success mt-3">
-                      <i class="fas fa-edit"></i>
-                  </a>
-                </div>              
+                </div>
+                <!-------------------- END TABLE BUS PLANT 1 -------------------->
+
+
+                <!-------------------- TABLE BUS PLANT 2 -------------------->
+                <div class="table-responsive mt-5">
+                  <h1 class="table-label">Jadwal Bus Jemputan Plant 2</h1>
+                  <table class="table">
+                      <thead class="table-head-bg">
+                          <tr>
+                              <th>No</th>
+                              <th>Titik Start</th>
+                              <th>Via</th>
+                              <th>Seat</th>
+                              <th>Shift-1</th>
+                              <th>Shift-2</th>
+                              <th>Shift-3</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for form in forms %}
+                            {% if form.plant == "1" %}
+                              <tr>
+                                <td>{{ form.nobus }}</td>
+                                <td>{{ form.titikStart }}</td>
+                                <td>{{ form.via }}</td>
+                                <td>{{ form.seat }}</td>
+                                <td>{{ form.shift1 }}</td>
+                                <td>{{ form.shift2 }}</td>
+                                <td>{{ form.shift3 }}</td>
+                              </tr>
+                            {% endif %}
+                          {% empty %}
+                          <tr>
+                              <td colspan="8">No Jadwal Bus available.</td>
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                </div> 
+                <!-------------------- END TABLE BUS PLANT 2 -------------------->
+                
+
+                <!-------------------- TABLE SHUTTLE BUS -------------------->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="table-responsive mt-5">
+                      <h1 class="table-label">Jadwal Shuttle Bus, Plant 1  ↔  Plant 2
+                      </h1>
+                      <table class="table">
+                          <thead class="table-head-bg">
+                              <tr>
+                                  <th>Titik Start</th>
+                                  <th>I</th>
+                                  <th>II</th>
+                                  <th>III</th>
+                                  <th>IV</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Plant 1</td>
+                              <td>08.00</td>
+                              <td>10.00</td>
+                              <td>13.00</td>
+                              <td>15.00</td>
+                            </tr>
+                            <tr>
+                              <td>Plant 2</td>
+                              <td>08.15</td>
+                              <td>11.30</td>
+                              <td>13.15</td>
+                              <td>16.00</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div> 
+                  </div>
+                </div>
+                
+                <!-------------------- END TABLE SHUTTLE BUS -------------------->
               </div>
             </div>
           </div>
