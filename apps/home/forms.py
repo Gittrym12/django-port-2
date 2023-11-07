@@ -1,5 +1,5 @@
 from django import forms
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM, menuKantinM
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM, menuKantinM, PengumumanYpmiM
 from django.core.exceptions import ValidationError
 
 class FormmodelForm(forms.ModelForm):
@@ -41,3 +41,14 @@ class menuKantinF(forms.ModelForm):
         fields = "__all__"
 
     file = forms.FileField(validators=[validate_file_extension])
+
+class PengumumanYpmiF(forms.ModelForm):
+    class Meta:
+        model = PengumumanYpmiM
+        fields = ['no_pengumuman', 'nama_pengumuman', 'tanggal_upload', 'file_pengumuman']
+        labels = {
+            'no_pengumuman': 'No Pengumuman',
+            'nama_pengumuman': 'Nama Pengumuman',
+            'tanggal_upload': 'Tanggal Upload',
+            'file_pengumuman': 'File Upload',
+        }

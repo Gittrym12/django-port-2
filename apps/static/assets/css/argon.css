@@ -17981,6 +17981,13 @@ p {
   grid-template-columns: repeat(4, 288px);
 }
 
+.layout-nogutters2 {
+  width: 100%;
+  display: grid;
+  grid-template-rows: repeat(2, 300px);
+  grid-template-columns: repeat(4, 288px);
+}
+
 .card3-man-title {
   color: white;
   background-color: #5e72e490;

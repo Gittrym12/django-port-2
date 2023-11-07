@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM, menuKantinM
-from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF, menuKantinF
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM, menuKantinM, PengumumanYpmiM
+from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF, menuKantinF, PengumumanYpmiF
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from datetime import datetime, timedelta
@@ -453,6 +453,7 @@ def jadwal_bus(request):
     forms = JadwalBusM.objects.all()
     return render(request, "home/informasi/jadwalBusJemputan.html", {"forms": forms})
 
+
 def jadwal_bus_admin(request):
     forms = JadwalBusM.objects.all()
     return render(request, "home/admin/jadwalBus.html", {"forms": forms})
@@ -486,6 +487,72 @@ def jadwal_bus_delete(request, pk):
 
 ##################################################### END JADWAL BUS #####################################################
 
+
+
+##################################################### PENGUMUMAN METHODS #####################################################
+# @login_required(login_url="/login/")
+
+
+
+def pengumuman_list(request):
+    pengumumans = PengumumanYpmiM.objects.all()
+    return render(request, "home/informasi/pengumumanList.html", {"pengumumans": pengumumans})
+
+def pengumuman_admin(request):
+    pengumumans = PengumumanYpmiM.objects.all()
+    return render(request, "home/admin/pengumuman_admin.html", {"pengumumans": pengumumans})
+
+def download_file_pengumuman(request, pengumuman_id):
+    pengumuman_instance = PengumumanYpmiM.objects.get(id=pengumuman_id)
+    file_path = pengumuman_instance.file_pengumuman.path
+    with open(file_path, "rb") as f:
+        response = HttpResponse(f.read(), content_type="application/octet-stream")
+        response["Content-Disposition"] = "attachment; filename=" + pengumuman_instance.file_pengumuman.name
+        return response
+
+def pengumuman_create(request):
+    if request.method == "POST":
+        form = PengumumanYpmiF(request.POST, request.FILES)
+        if form.is_valid():
+            instance = form.save()
+            return redirect("pengumuman_list")
+    else:
+        form = PengumumanYpmiF()
+    return render(request, "home/admin/pengumuman_create.html", {"form": form})
+
+def pengumuman_update(request, pk):
+    pengumuman = PengumumanYpmiM.objects.get(pk=pk)
+    if request.method == "POST":
+        form = PengumumanYpmiF(request.POST, request.FILES, instance=pengumuman)
+        if form.is_valid():
+            form.save()
+            return redirect("pengumuman_list")
+    else:
+        form = PengumumanYpmiF(instance=pengumuman)
+    return render(request, "home/admin/pengumuman_update.html", {"form": form})
+
+
+
+def pengumuman_delete(request, pk):
+    pengumuman = get_object_or_404(PengumumanYpmiM, pk=pk)
+
+    if request.method == "POST":
+        # Delete the file associated with the pengumuman
+        file_path = pengumuman.file_pengumuman.path
+
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        # Delete the pengumuman from the database
+        pengumuman.delete()
+
+        return redirect("pengumuman_list")
+
+    return render(request, "home/admin/pengumuman_delete.html", {"pengumuman": pengumuman})
+
+
+
+##################################################### END PENGUMUMAN METHODS #####################################################
 
 
 def data_tables(request):

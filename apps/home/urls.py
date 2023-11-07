@@ -52,8 +52,16 @@ urlpatterns = [
     path("home/menuKantin/", views.menuKantin, name="menuKantin"),
     path("home/create_menuKantin/", views.upload_file, name="create_menuKantin"),
     path("home/delete_menuKantin/<int:file_id>/", views.delete_file, name="delete_menuKantin"),
-
     path("home/delete_menu/<int:pk>/", views.delete_menu, name="delete_menu"),
+
+    path('pengumuman/list/', views.pengumuman_list, name='pengumuman_list'),
+    path('pengumuman/admin/', views.pengumuman_admin, name='pengumuman_admin'),
+    path('pengumuman/create/', views.pengumuman_create, name='pengumuman_create'),
+    path('pengumuman/update/<int:pk>/', views.pengumuman_update, name='pengumuman_update'),
+    path('pengumuman/delete/<int:pk>/', views.pengumuman_delete, name='pengumuman_delete'),
+    path('pengumuman/download/<int:pengumuman_id>/', views.download_file_pengumuman, name='download_file_pengumuman'),
+
+
 
     # Other views
     path("home/kontak/", views.kontak, name="kontak"),
