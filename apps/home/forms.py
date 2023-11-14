@@ -1,6 +1,7 @@
 from django import forms
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM, menuKantinM, PengumumanYpmiM
-from django.core.exceptions import ValidationError
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM, menuKantinM, Announcement
+from django.core.exceptions import ValidationError# forms.py
+
 
 class FormmodelForm(forms.ModelForm):
     class Meta:
@@ -42,13 +43,15 @@ class menuKantinF(forms.ModelForm):
 
     file = forms.FileField(validators=[validate_file_extension])
 
-class PengumumanYpmiF(forms.ModelForm):
+
+class AnnouncementForm(forms.ModelForm):
+    start_date = forms.DateField(label='Start Date', required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    end_date = forms.DateField(label='End Date', required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+
     class Meta:
-        model = PengumumanYpmiM
+        model = Announcement
         fields = ['no_pengumuman', 'nama_pengumuman', 'tanggal_upload', 'file_pengumuman']
-        labels = {
-            'no_pengumuman': 'No Pengumuman',
-            'nama_pengumuman': 'Nama Pengumuman',
-            'tanggal_upload': 'Tanggal Upload',
-            'file_pengumuman': 'File Upload',
+        widgets = {
+            'tanggal_upload': forms.DateInput(attrs={'type': 'date'}),
         }
+

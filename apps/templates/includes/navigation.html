@@ -17,21 +17,23 @@
         <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
           Informasi
         </a>
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="{% url 'pengumuman_list' %}">Pengumuman HRD</a>
-          <a class="dropdown-item" href="{% url 'chart_data' %}">Informasi Kehadiran</a>
-          <a class="dropdown-item" href="{% url 'jadwalTraining' %}">Jadwal Training</a>
-          <a class="dropdown-item" href="{% url 'jadwal_bus_list' %}">Jadwal Bus Jemputan</a>
-          <a class="dropdown-item" href="{% url 'menuKantin' %}">Menu Kantin</a>
-          <a class="dropdown-item" href="{% url 'satgasPPKS' %}">Satgas PPKS</a>
-          <!--
-          <a class="dropdown-item" href="{% url 'pkb' %}">PKB</a>
-          -->
-          <a class="dropdown-item" href="{% url 'dataUlangTahun' %}">Data Ulang Tahun Hari Ini</a>
-          <!--
-          <a class="dropdown-item" href="{% url 'dataKehadiranTerbaik' %}">Data Kehadiran Terbaik</a>
-          -->
-        </div>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <li><a class="dropdown-item" href="{% url 'announcement_list' %}">Pengumuman HRD</a></li>
+          <li><a class="dropdown-item" href="{% url 'chart_data' %}">Informasi Kehadiran</a></li>
+          <li><a class="dropdown-item" href="{% url 'jadwalTraining' %}">Jadwal Training</a></li>
+          <li><a class="dropdown-item" href="{% url 'History_training' %}">History Training</a></li>
+          <li><a class="dropdown-item" href="{% url 'jadwal_bus_list' %}">Jadwal Bus Jemputan</a></li>
+          <li><a class="dropdown-item" href="{% url 'menuKantin' %}">Menu Kantin</a></li>
+          <li><a class="dropdown-item" href="{% url 'satgasPPKS' %}">Satgas PPKS</a></li>
+          <li><a class="dropdown-item" href="{% url 'dataUlangTahun' %}">Data Ulang Tahun Hari Ini</a></li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">Submenu</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Submenu action</a></li>
+              <li><a class="dropdown-item" href="#">Another submenu action</a></li>
+            </ul>
+          </li>
+        </ul>
       </li>
       <li class="nav-item">
         <a class="nav-link text-primary" href="{% url 'form_list_prosedur' %}">Prosedur</a>
@@ -39,9 +41,10 @@
       <li class="nav-item">
         <a class="nav-link text-primary" href="{% url 'form_list' %}">Formulir</a>
       </li>
+      <!--
       <li class="nav-item">
         <a class="nav-link text-primary" href="{% url 'gallery_list' %}">Kegiatan</a>
-      </li>
+      </li>-->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-primary" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
           Link <span>Portal</span> 
@@ -59,8 +62,22 @@
 </nav>
 
 
+{% block javascripts %}
+  <script>
+    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+      if (!$(this).next().hasClass('show')) {
+        $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+      }
+      var $subMenu = $(this).next('.dropdown-menu');
+      $subMenu.toggleClass('show');
 
 
+      $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+        $('.dropdown-submenu .show').removeClass('show');
+      });
 
 
-
+      return false;
+    });
+  </script>
+{% endblock javascripts %}

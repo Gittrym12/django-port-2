@@ -15,7 +15,7 @@ class ProsedurM(models.Model):
     id = models.AutoField(primary_key=True)
     nama_prosedur = models.CharField(max_length=100)
     category_prosedur = models.CharField(max_length=100)
-    file_upload = models.FileField(upload_to="uploads/")
+    file_upload = models.FileField(upload_to="uploads/prosedur")
 
     def __str__(self):
         return self.nama_prosedur
@@ -47,24 +47,27 @@ class JadwalBusM(models.Model):
 
 class DataPoint(models.Model):
     id = models.AutoField(primary_key=True)
-    date = models.CharField(max_length=25)
-    value = models.FloatField()
+    bulan = models.CharField(max_length=25)
+    divisi = models.CharField(max_length=25, default="divisions")
+    indexs = models.FloatField()
 
     def __str__(self):
-        return f"{self.date} - {self.value}"
+        return f"{self.bulan} - {self.indexs}"
+
 
 class menuKantinM(models.Model):
     id = models.AutoField(primary_key=True)
     nama_file = models.CharField(max_length=35)
-    file = models.FileField(upload_to="uploads/menuKantin/")
+    file = models.FileField(upload_to="uploads/menuKantin")
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
-class PengumumanYpmiM(models.Model):
+class Announcement(models.Model):
     id = models.AutoField(primary_key=True)
-    no_pengumuman = models.CharField(max_length=3, blank=True)
-    nama_pengumuman = models.CharField(max_length=35)
+    no_pengumuman = models.CharField(max_length=255)
+    nama_pengumuman = models.CharField(max_length=255)
     tanggal_upload = models.DateField()
-    file_pengumuman = models.FileField(upload_to="uploads/pengumuman/")
+    file_pengumuman = models.FileField(upload_to='uploads/pengumuman')
 
     def __str__(self):
         return self.nama_pengumuman
+

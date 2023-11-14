@@ -4,8 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.template import loader
 from django.urls import reverse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM, menuKantinM, Announcement
-from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF, menuKantinF, AnnouncementForm
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM, menuKantinM, PengumumanYpmiM
+from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF, menuKantinF, PengumumanYpmiF
 from django.contrib.sessions.models import Session
 from django.utils import timezone
 from datetime import datetime, timedelta
@@ -13,9 +13,8 @@ import pandas as pd
 import json
 import os
 import glob
-from django.db.models import Q
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+
+
 
 
 def get_date_range():
@@ -396,19 +395,18 @@ def chart_data_admin(request):
     
     # Convert data to a format suitable for Chart.js (e.g., JSON)
     chart_data = {
-        'labels': [str(dp.bulan) for dp in data_points],
-        'indexs': [dp.indexs for dp in data_points],
+        'labels': [str(dp.date) for dp in data_points],
+        'values': [dp.value for dp in data_points],
     }
     
     return render(request, 'home/admin/indexsKehadiran.html', {'chart_data': json.dumps(chart_data, default=str), 'data_points': data_points})
-
 
 def chart_data(request):
     data_points = DataPoint.objects.all()
     # Convert data to a format suitable for Chart.js (e.g., JSON)
     data = {
-        'labels': [str(dp.bulan) for dp in data_points],
-        'indexs': [dp.indexs for dp in data_points],
+        'labels': [str(dp.date) for dp in data_points],
+        'values': [dp.value for dp in data_points],
     }
     return render(request, 'home/informasi/indexsKehadiran.html', {'data': json.dumps(data)})
 
@@ -493,92 +491,12 @@ def jadwal_bus_delete(request, pk):
 
 ##################################################### PENGUMUMAN METHODS #####################################################
 # @login_required(login_url="/login/")
-from django import forms
-
-class AnnouncementFilterForm(forms.Form):
-    q = forms.CharField(required=False)
-    start_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
-    end_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
-
-class AnnouncementListView(ListView):
-    model = Announcement
-    template_name = 'home/informasi/pengumumanList.html'
-    context_object_name = 'pengumumans'
-    form_class = AnnouncementFilterForm
-
-    def get_queryset(self):
-        form = self.form_class(self.request.GET)
-        if form.is_valid():
-            pengumumans = Announcement.objects.all()
-
-            query = form.cleaned_data.get('q')
-            start_date = form.cleaned_data.get('start_date')
-            end_date = form.cleaned_data.get('end_date')
-
-            if query:
-                pengumumans = pengumumans.filter(Q(no_pengumuman__icontains=query) | Q(nama_pengumuman__icontains=query))
-
-            if start_date:
-                pengumumans = pengumumans.filter(tanggal_upload__gte=start_date)
-
-            if end_date:
-                pengumumans = pengumumans.filter(tanggal_upload__lte=end_date)
-
-            return pengumumans
-        else:
-            # Handle form validation errors if needed
-            return Announcement.objects.none()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form"] = self.form_class(self.request.GET)
-        return context
 
 
-class AnnouncementCreateView(CreateView):
-    model = Announcement
-    form_class = AnnouncementForm
-    template_name = 'home/admin/pengumuman_create.html'
-    success_url = reverse_lazy('announcement_list')
 
-class AnnouncementUpdateView(UpdateView):
-    model = Announcement
-    form_class = AnnouncementForm
-    template_name = 'home/admin/pengumuman_update.html'
-    success_url = reverse_lazy('announcement_list')
-
-class AnnouncementDeleteView(DeleteView):
-    model = Announcement
-    template_name = 'home/admin/pengumuman_delete.html'
-    success_url = reverse_lazy('announcement_list')
-
-def download_file_pengumuman(request, announcement_id):
-    announcement_instance = get_object_or_404(Announcement, id=announcement_id)
-    file_path = announcement_instance.file_pengumuman.path
-
-    with open(file_path, "rb") as f:
-        response = HttpResponse(f.read(), content_type="application/octet-stream")
-        response["Content-Disposition"] = "attachment; filename=" + announcement_instance.file_pengumuman.name
-        return response
-
-'''
 def pengumuman_list(request):
-    query = request.GET.get("q")
-    filter_by = request.GET.get("filter_by")
-    date_filter = request.GET.get("date_filter")
-
-    # Initial queryset
     pengumumans = PengumumanYpmiM.objects.all()
-
-    # Apply search filter
-    if query:
-        pengumumans = pengumumans.filter(Q(no_pengumuman__icontains=query) | Q(nama_pengumuman__icontains=query))
-
-    # Apply date filter
-    if date_filter:
-        pengumumans = pengumumans.filter(tanggal_upload=date_filter)
-
-    return render(request, "home/informasi/pengumumanList.html", {"pengumumans": pengumumans, "query": query, "filter_by": filter_by, "date_filter": date_filter})
+    return render(request, "home/informasi/pengumumanList.html", {"pengumumans": pengumumans})
 
 def pengumuman_admin(request):
     pengumumans = PengumumanYpmiM.objects.all()
@@ -592,7 +510,6 @@ def download_file_pengumuman(request, pengumuman_id):
         response["Content-Disposition"] = "attachment; filename=" + pengumuman_instance.file_pengumuman.name
         return response
 
-
 def pengumuman_create(request):
     if request.method == "POST":
         form = PengumumanYpmiF(request.POST, request.FILES)
@@ -602,7 +519,6 @@ def pengumuman_create(request):
     else:
         form = PengumumanYpmiF()
     return render(request, "home/admin/pengumuman_create.html", {"form": form})
-
 
 def pengumuman_update(request, pk):
     pengumuman = PengumumanYpmiM.objects.get(pk=pk)
@@ -633,7 +549,7 @@ def pengumuman_delete(request, pk):
         return redirect("pengumuman_list")
 
     return render(request, "home/admin/pengumuman_delete.html", {"pengumuman": pengumuman})
-'''
+
 
 
 ##################################################### END PENGUMUMAN METHODS #####################################################

@@ -31,12 +31,46 @@
                 {% csrf_token %}
                 <div class="form-group">
                   <label for="bulan">Bulan:</label>
-                  <input type="text" class="form-control" id="date" name="date" required>
+                    <select class="form-control" id="bulan" name="bulan" required>
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
                 </div>
+              
                 <div class="form-group">
-                  <label for="value">Total Kehadiran:</label>
-                  <input type="number" class="form-control" id="value" name="value" required>
-                </div>
+                  <label for="divisi">Division:</label>
+                  <select class="form-control" id="divisi" name="divisi" required>
+                      <option value="PROD_PLANNING_DELIVERY">PROD PLANNING & DELIVERY</option>
+                      <option value="QUALITY_ASSURANCE">QUALITY ASSURANCE</option>
+                      <option value="STEEL_PRODUCTION">STEEL PRODUCTION</option>
+                      <option value="STEEL_PRODUCTION_ENGINEERING">STEEL PRODUCTION ENGINEERING</option>
+                      <option value="MAINTENANCE">MAINTENANCE</option>
+                      <option value="INVENTORY_CONTROL">INVENTORY CONTROL</option>
+                      <option value="FINANCE">FINANCE</option>
+                      <option value="PROD_STRATEGY">PROD. STRATEGY</option>
+                      <option value="GENERAL_AFFAIRS">GENERAL AFFAIRS</option>
+                      <option value="HUMAN_RESOURCES_DEPARTMENT">HUMAN RESOURCES DEPARTMENT</option>
+                      <option value="ALUMINIUM_PRODUCTION">ALUMINIUM PRODUCTION</option>
+                      <option value="BUSINESS_MANUFACTURING_DEVELOPMENT">BUSINESS & MANUFACTURING DEVELOPMENT</option>
+                      <option value="ALUMINIUM_PRODUCTION_ENGINEERING">ALUMINIUM PRODUCTION ENGINEERING</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label for="indexs">Total Kehadiran:</label>
+                <input type="number" class="form-control" id="indexs" name="indexs" step="0.01" title="Gunakan format angka atau desimal (contoh: 97.31)">
+              </div>
+            
+            
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>                          
             </div>

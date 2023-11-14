@@ -2,6 +2,7 @@ from django.urls import path, re_path
 from apps.home import views
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import AnnouncementListView, AnnouncementCreateView, AnnouncementUpdateView, AnnouncementDeleteView
 
 # Define URL patterns for your Django application
 
@@ -53,17 +54,21 @@ urlpatterns = [
     path("home/create_menuKantin/", views.upload_file, name="create_menuKantin"),
     path("home/delete_menuKantin/<int:file_id>/", views.delete_file, name="delete_menuKantin"),
     path("home/delete_menu/<int:pk>/", views.delete_menu, name="delete_menu"),
-
-    path('pengumuman/list/', views.pengumuman_list, name='pengumuman_list'),
-    path('pengumuman/admin/', views.pengumuman_admin, name='pengumuman_admin'),
-    path('pengumuman/create/', views.pengumuman_create, name='pengumuman_create'),
-    path('pengumuman/update/<int:pk>/', views.pengumuman_update, name='pengumuman_update'),
-    path('pengumuman/delete/<int:pk>/', views.pengumuman_delete, name='pengumuman_delete'),
+ 
     path('pengumuman/download/<int:pengumuman_id>/', views.download_file_pengumuman, name='download_file_pengumuman'),
+
+
+    path('pengumuman/list/', AnnouncementListView.as_view(), name='announcement_list'),
+    path('pengumuman/create/', AnnouncementCreateView.as_view(), name='announcement_create'),
+    path('pengumuman/update/<int:pk>/', AnnouncementUpdateView.as_view(), name='announcement_update'),
+    path('pengumuman/delete/<int:pk>/', AnnouncementDeleteView.as_view(), name='announcement_delete'),
+    
+
 
 
 
     # Other views
+    path("home/History_training/", views.History_training, name="History_training"),
     path("home/kontak/", views.kontak, name="kontak"),
     path("home/timKami/", views.timKami, name="timKami"),
     path("home/visiYpmi/", views.visiYpmi, name="visiYpmi"),
