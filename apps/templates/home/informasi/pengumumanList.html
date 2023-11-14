@@ -23,32 +23,30 @@
       <div class="card card-stats">
         <div class="card-body">
           <div class="row">
-            <div class="col-md-12 mx-auto">
+            <div class="col-lg-12 mx-auto">
               <h1 class="table-label text-center">Pengumuman HRD</h1>
-              <div class="row">
                 <!-- Filter and Search Form -->
                 <form method="get" action="{% url 'announcement_list' %}" class="row g-3">
-                    <div class="col-sm-3 justify-content-between">
+                    <div class="col-sm-12">
                         <label for="searchInput" class="form-label">Search:</label>
                         <input type="text" id="searchInput" class="form-control mb-2" oninput="searchTable()" placeholder="Type to search..." name="q" value="{{ query }}">
                     </div>
-                    <div class="col-sm-3 justify-content-between">
+                    <div class="col-sm-4">
                         <label for="startDate" class="form-label">Start Date:</label>
                         <input type="date" id="startDate" class="form-control" name="start_date" value="{{ date_filter }}">
                     </div>
-                    <div class="col-sm-3 justify-content-between">
+                    <div class="col-sm-4">
                         <label for="endDate" class="form-label">End Date:</label>
                         <input type="date" id="endDate" class="form-control" name="end_date" value="{{ end_date }}">
                     </div>
-                    <div class="col-sm-3 justify-content-between">
-                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    <div class="col-md-2 pt-4">
+                      <button type="submit" class="btn btn-success mt-2">Apply Filters</button>
+                    </div>
+                    <div class="col-md-2 pt-4">
+                      <a href="{% url 'announcement_list' %}" class="btn btn-warning mt-2">Clear Filters</a>
                     </div>
                 </form>
                 <!-- End Filter and Search Form -->
-            </div>
-            
-              
-
               <!-- Table -->
               <div class="table-responsive">
                 <h1 class="table-label">List Pengumuman</h1>
@@ -86,7 +84,7 @@
               <!-- End Table -->
 
               <!-- Additional Features (Edit and Filter) -->
-              <div class="d-flex justify-content-between mt-3">
+              <div class="d-flex mt-3">
                 <a href="{% url 'announcement_create' %}" class="btn btn-success">
                   <i class="fas fa-edit"></i> Create Pengumuman
                 </a>
