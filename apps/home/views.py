@@ -228,7 +228,7 @@ def dataUlangTahun(request):
     data = [{'NIK': row['NIK'], 'Name': row['NAME'], 'Section': row['SECTION'], 'Occupation': row['OCCUPATION']} for _, row in filtered_data.iterrows()]
 
     # Merender template 'dataUlangTahun.html' dengan data yang telah disiapkan
-    return render(request, 'home/informasi/dataUlangTahun.html', {'data': data})
+    return render(request, 'home/informasi/dataUlangTahuncopy.html', {'data': data})
 
 ##################################################### END DATA UALNG TAHUN #####################################################
 
@@ -248,10 +248,18 @@ def menu_list(request):
     menu_items = menuKantinM.objects.all()
     return render(request, 'home/admin/menu_list.html', {"menu_items": menu_items})
 
+from django.shortcuts import render
+import pandas as pd
+from datetime import datetime, timedelta
+
+def get_most_recent_csv_file():
+    # Implement your logic to get the most recent CSV file path
+    pass
+
 def menuKantin(request):
     # Get the path to the most recently uploaded CSV file in the 'core/media' directory
     csv_file_path = get_most_recent_csv_file()
-    
+
     if csv_file_path:
         # Read the CSV file
         df = pd.read_csv(csv_file_path, delimiter=';')
@@ -262,21 +270,45 @@ def menuKantin(request):
         # Get today's date and format it as 'dd/mm/yy' to filter the data
         today_date = datetime.now().strftime('%d/%m/%y')
 
+        # Get tomorrow's date and format it as 'dd/mm/yy' to filter the data
+        tomorrow_date = (datetime.now() + timedelta(days=1)).strftime('%d/%m/%y')
+
         # Filter the data based on today's date
-        filtered_data = df[df['Date'].dt.strftime('%d/%m/%y') == today_date]
+        today_data = df[df['Date'].dt.strftime('%d/%m/%y') == today_date]
 
-        # Create a list of dictionaries containing the data
-        data = [{'Date': row['Date'].strftime('%d/%m/%Y'),
-                 'Pilihan': row['PILIHAN'],
-                 'Breakfast': row['BREAKFAST'],
-                 'Shift3': row['SHIFT 3'],
-                 'Shift1': row['SHIFT 1'],
-                 'Shift2': row['SHIFT 2']} for _, row in filtered_data.iterrows()]
+        # Filter the data based on tomorrow's date
+        tomorrow_data = df[df['Date'].dt.strftime('%d/%m/%y') == tomorrow_date]
 
-        return render(request, 'home/informasi/menuKantin.html', {'data': data})
+        # Apply linebreaksbr filter to each field in today's data
+        today_data_list = []
+        for _, row in today_data.iterrows():
+            today_data_list.append({
+                'Date': row['Date'].strftime('%d/%m/%Y'),
+                'Pilihan': row['PILIHAN'].replace(',', '<br>'),
+                'Breakfast': row['BREAKFAST'].replace(',', '<br>'),
+                'Shift3': row['SHIFT 3'].replace(',', '<br>'),
+                'Shift1': row['SHIFT 1'].replace(',', '<br>'),
+                'Shift2': row['SHIFT 2'].replace(',', '<br>')
+            })
+
+        # Apply linebreaksbr filter to each field in tomorrow's data
+        tomorrow_data_list = []
+        for _, row in tomorrow_data.iterrows():
+            tomorrow_data_list.append({
+                'Date': row['Date'].strftime('%d/%m/%Y'),
+                'Pilihan': row['PILIHAN'].replace(',', '<br>'),
+                'Breakfast': row['BREAKFAST'].replace(',', '<br>'),
+                'Shift3': row['SHIFT 3'].replace(',', '<br>'),
+                'Shift1': row['SHIFT 1'].replace(',', '<br>'),
+                'Shift2': row['SHIFT 2'].replace(',', '<br>')
+            })
+
+        return render(request, 'home/informasi/menuKantin.html', {'today_data': today_data_list, 'tomorrow_data': tomorrow_data_list})
     else:
         # Handle the case where no CSV file is found
         return render(request, 'no_data.html')
+
+
 
 def get_most_recent_csv_file():
     # Get a list of CSV files in the 'core/media' directory and subdirectories
@@ -638,8 +670,8 @@ def pengumuman_delete(request, pk):
 
 ##################################################### END PENGUMUMAN METHODS #####################################################
 
-def History_training(request):
-    return render(request, "home/informasi/history_training.html")
+def aturanViews(request):
+    return render(request, "home/aturan.html")
 
 
 def data_tables(request):

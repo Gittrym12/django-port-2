@@ -68,7 +68,7 @@ urlpatterns = [
 
 
     # Other views
-    path("home/History_training/", views.History_training, name="History_training"),
+    path("home/aturan/", views.aturanViews, name="aturan"),
     path("home/kontak/", views.kontak, name="kontak"),
     path("home/timKami/", views.timKami, name="timKami"),
     path("home/visiYpmi/", views.visiYpmi, name="visiYpmi"),

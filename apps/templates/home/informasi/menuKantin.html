@@ -26,43 +26,59 @@
         <div class="col-md-12 mx-auto">
           <div class="card card-stats">
             <div class="card-body">
-              <h1 class="table-label">Menu Makan Hari ini / <span id="currentDate"></span></h1>
               <div class="table-responsive">
-                <table class="table align-items-center table-flush">
+                <h1 class="table-label text-center mt-5">Menu Makan Hari ini / <span id="currentDate"></span></h1>
+                <table class="table">
                   <thead class="table-head-bg">
                     <tr>
-                      <th scope="col" class="sort" data-sort="name">Pilihan</th>
-                      <th scope="col" class="sort" data-sort="name">Sarapan</th>
-                      <th scope="col" class="sort" data-sort="name">Shift-3</th>
-                      <th scope="col" class="sort" data-sort="name">Shift-1</th>
-                      <th scope="col" class="sort" data-sort="name">Shift-2</th>
+                      <th>Pilihan</th>
+                        <th>Breakfast</th>
+                        <th>Shift 3</th>
+                        <th>Shift 1</th>
+                        <th>Shift 2</th>
                     </tr>
                   </thead>
-                  <tbody class="list">
-                    {% for entry in data %}
+                  <tbody>
+                    <!-- Today's data -->
+                    {% for entry in today_data %}
                     <tr>
-                      <td class="budget">
-                        {{ entry.Pilihan }}
-                      </td>
-                      <td class="budget">
-                        {{ entry.Breakfast }}
-                      </td>
-                      <td class="budget">
-                        {{ entry.Shift3 }}
-                      </td>
-                      <td class="budget">
-                        {{ entry.Shift1 }}
-                      </td>
-                      <td class="budget">
-                        {{ entry.Shift2 }}
-                      </td>
-                    </tr>   
-                    {% endfor %}    
+                      <td>{{ entry.Pilihan|safe }}</td>
+                      <td>{{ entry.Breakfast|safe }}</td>
+                      <td>{{ entry.Shift3|safe }}</td>
+                      <td>{{ entry.Shift1|safe }}</td>
+                      <td>{{ entry.Shift2|safe }}</td>
+                    </tr>
+                  
+                    {% endfor %}
                   </tbody>
                 </table>
-                <a href="{% url 'form_create' %}" class="btn btn-success mt-3">
-                  <i class="fas fa-edit"></i>
-                </a>
+              </div>
+
+              <div class="table-responsive">
+                <h1 class="table-label text-center mt-5">Menu Makan Besok / <span id="tomorrowDate"></span></h1>
+                <table class="table">
+                  <thead class="table-head-bg">
+                    <tr>
+                      <th>Pilihan</th>
+                        <th>Breakfast</th>
+                        <th>Shift 3</th>
+                        <th>Shift 1</th>
+                        <th>Shift 2</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Tomorrow's data -->
+                    {% for entry in tomorrow_data %}
+                    <tr>
+                      <td>{{ entry.Pilihan|safe }}</td>
+                      <td>{{ entry.Breakfast|safe }}</td>
+                      <td>{{ entry.Shift3|safe }}</td>
+                      <td>{{ entry.Shift1|safe }}</td>
+                      <td>{{ entry.Shift2|safe }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
               </div>
             </div>
             
@@ -72,6 +88,13 @@
               var options = { day: 'numeric', month: 'long', year: 'numeric' };
               var dateLocale = today.toLocaleDateString('id-ID', options); 
               currentDateElement.textContent = dateLocale;
+
+              var tomorrowDateElement = document.getElementById("tomorrowDate");
+              var tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1); // Set tomorrow's date
+              var options = { day: 'numeric', month: 'long', year: 'numeric' };
+              var dateLocale = tomorrow.toLocaleDateString('id-ID', options);
+              tomorrowDateElement.textContent = dateLocale;
             </script>
           </div>
         </div>
@@ -91,3 +114,4 @@
   <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
 {% endblock javascripts %}
+l>
