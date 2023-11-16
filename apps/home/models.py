@@ -63,7 +63,7 @@ class menuKantinM(models.Model):
 
 class Announcement(models.Model):
     id = models.AutoField(primary_key=True)
-    no_pengumuman = models.CharField(max_length=255)
+    catThn = models.CharField(max_length=5)
     nama_pengumuman = models.CharField(max_length=255)
     tanggal_upload = models.DateField()
     file_pengumuman = models.FileField(upload_to='uploads/pengumuman')

@@ -47,47 +47,52 @@
     <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
 
     <script>
-      var ctx = document.getElementById('myChart').getContext('2d');
-      var data = {{ data|safe }};
-      var myChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-              labels: data.labels,
-              datasets: [{
-                  label: 'Indeks Kehadiran',
-                  data: data.indexs,  // Use 'indexs' instead of 'indexs'
-                  backgroundColor: 'rgba(0, 82, 239, 0.8)',
-                  borderColor: 'rgba(0, 82, 239, 0.8)',
-                  borderWidth: 1,
-              }]
-          },
-          options: {
-            plugins: {
-                annotation: {
-                    items: [{
-                        type: 'line',
-                        borderColor: 'black',
-                        borderWidth: 3,
-                        scaleID: 'y',
-                        value: 95
-                    }]
-                }
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        callback: function (data) {
-                            return data + ' %';
-                        },
-                        min: 90,
-                        max: 100,
-                    }
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var data = {{ data|safe }};
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [{
+                    label: 'Indeks Kehadiran',
+                    data: data.indexs,  // Use 'indexs' instead of 'indexs'
+                    backgroundColor: 'rgba(0, 82, 239, 0.8)',
+                    borderColor: 'rgba(0, 82, 239, 0.8)',
+                    borderWidth: 1,
                 }]
             },
-        }
-
+            options: {
+                plugins: {
+                    annotation: {
+                        items: [{
+                            type: 'line',
+                            borderColor: 'black',
+                            borderWidth: 3,
+                            scaleID: 'y',
+                            value: 95
+                        }]
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        position: 'left', // Position the y-axis on the left
+                        ticks: {
+                            callback: function (data) {
+                                return data + ' %';
+                            },
+                            min: 90,
+                            max: 100,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Presentase Kehadiran',
+                            fontSize: 16,
+                        },
+                    }],
+                },
+            }
         });
     </script>
 {% endblock javascripts %}

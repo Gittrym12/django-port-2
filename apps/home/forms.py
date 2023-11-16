@@ -50,7 +50,7 @@ class AnnouncementForm(forms.ModelForm):
 
     class Meta:
         model = Announcement
-        fields = ['no_pengumuman', 'nama_pengumuman', 'tanggal_upload', 'file_pengumuman']
+        fields = ['catThn', 'nama_pengumuman', 'tanggal_upload', 'file_pengumuman']
         widgets = {
             'tanggal_upload': forms.DateInput(attrs={'type': 'date'}),
         }

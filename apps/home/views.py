@@ -531,7 +531,6 @@ class AnnouncementFilterForm(forms.Form):
     q = forms.CharField(required=False)
     start_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
     end_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date'}))
-
 class AnnouncementListView(ListView):
     model = Announcement
     template_name = 'home/informasi/pengumumanList.html'
@@ -548,7 +547,7 @@ class AnnouncementListView(ListView):
             end_date = form.cleaned_data.get('end_date')
 
             if query:
-                pengumumans = pengumumans.filter(Q(no_pengumuman__icontains=query) | Q(nama_pengumuman__icontains=query))
+                pengumumans = pengumumans.filter(Q(nama_pengumuman__icontains=query))
 
             if start_date:
                 pengumumans = pengumumans.filter(tanggal_upload__gte=start_date)
@@ -558,7 +557,8 @@ class AnnouncementListView(ListView):
 
             return pengumumans
         else:
-            # Handle form validation errors if needed
+            # Print or log form errors
+            print(form.errors)
             return Announcement.objects.none()
 
     def get_context_data(self, **kwargs):
@@ -572,6 +572,11 @@ class AnnouncementCreateView(CreateView):
     form_class = AnnouncementForm
     template_name = 'home/admin/pengumuman_create.html'
     success_url = reverse_lazy('announcement_list')
+
+    def form_valid(self, form):
+        # Customize form validation behavior here
+        form.instance.catThn = form.cleaned_data['catThn']
+        return super().form_valid(form)
 
 class AnnouncementUpdateView(UpdateView):
     model = Announcement
