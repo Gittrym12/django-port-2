@@ -1,8 +1,7 @@
 {% extends 'layouts/base.html' %}
-
+{% load static %}
 {% block title %} Dashboard {% endblock title %}
 
-<!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
@@ -25,12 +24,23 @@
             <div class="col-md-10 mx-auto">
                 <div class="card card-stats">
                     <div class="card-body">
-                        <h1 class="table-label text-center mt-5">GRAFIK KEHADIRAN YPMI 2023</h1>
-                        <div class="row"><canvas id="myChart" height="500" width="500"></canvas></div>
+                        <h1 class="table-label text-center mt-4">GRAFIK KEHADIRAN YPMI 2023</h1>
+                        {% for data_kehadiran in data_list %}
+                            <p class="text-primary">{{ data_kehadiran.Bulan }}, {{ data_kehadiran.divisi }}, {{ data_kehadiran.tanggal }}, {{ data_kehadiran.keterangan }}</p>
+                            {% if data_kehadiran.image %}
+                                <img src="{{ data_kehadiran.image.url }}" alt="Data Kehadiran Image">
+                            {% else %}
+                                <p>No image available</p>
+                            {% endif %}
+                            <a href="{% url 'update_datakehadiran' pk=data_kehadiran.pk %}">Edit</a>
+                            <a href="{% url 'delete_datakehadiran' pk=data_kehadiran.pk %}">Delete</a>
+                        {% endfor %}
+                        <img src="/static/assets/img/theme/5-Section-HRD.jpg" class="img-fluid" alt="" srcset="">
                         
-                        <div class="row mt-5 mb-5">
-                            <img src="/static/assets/img/theme/tableall.png" alt="" class="img-fluid" srcset="">
-                        </div>
+                        <!-- The following line might not be necessary, as it seems to be a static image -->
+                        <!-- <img src="media/images/Picture2.png" class="img-fluid" alt="Data Kehadiran Image"> -->
+                        
+                        <!-- Other content goes here -->
                     </div>
                 </div>
             </div>
@@ -43,56 +53,6 @@
 {% endblock content %}
 
 {% block javascripts %}
-    <script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
-
-    <script>
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var data = {{ data|safe }};
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: data.labels,
-                datasets: [{
-                    label: 'Indeks Kehadiran',
-                    data: data.indexs,  // Use 'indexs' instead of 'indexs'
-                    backgroundColor: 'rgba(0, 82, 239, 0.8)',
-                    borderColor: 'rgba(0, 82, 239, 0.8)',
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                plugins: {
-                    annotation: {
-                        items: [{
-                            type: 'line',
-                            borderColor: 'black',
-                            borderWidth: 3,
-                            scaleID: 'y',
-                            value: 95
-                        }]
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    yAxes: [{
-                        position: 'left', // Position the y-axis on the left
-                        ticks: {
-                            callback: function (data) {
-                                return data + ' %';
-                            },
-                            min: 90,
-                            max: 100,
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Presentase Kehadiran',
-                            fontSize: 16,
-                        },
-                    }],
-                },
-            }
-        });
-    </script>
+    <script src="{% static 'assets/vendor/chart.js/dist/Chart.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/chart.js/dist/Chart.extension.js' %}"></script>
 {% endblock javascripts %}

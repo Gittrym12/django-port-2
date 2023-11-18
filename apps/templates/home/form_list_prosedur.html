@@ -145,7 +145,7 @@
                       </thead>
                       <tbody>
                         {% for form in forms %}
-                          {% if form.category_prosedur == "Medical & Welfare" %}
+                          {% if form.category_prosedur == "Wellfare" %}
                             <tr>
                               <td>{{ forloop.counter0|add:1 }}</td>
                               <td>{{ form.nama_prosedur }}</td>
@@ -229,7 +229,7 @@
                       </thead>
                       <tbody>
                         {% for form in forms %}
-                          {% if form.category_prosedur == "Payroll & Administration" %}
+                          {% if form.category_prosedur == "Attendance" %}
                             <tr>
                               <td>{{ forloop.counter0|add:1 }}</td>
                               <td>{{ form.nama_prosedur }}</td>

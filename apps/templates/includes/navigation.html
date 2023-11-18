@@ -19,11 +19,11 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <li><a class="dropdown-item" href="{% url 'announcement_list' %}">Pengumuman HRD</a></li>
-          <li><a class="dropdown-item" href="{% url 'chart_data' %}">Informasi Kehadiran</a></li>
+          <li><a class="dropdown-item" href="{% url 'read_datakehadiran' %}">Informasi Kehadiran</a></li>
           <li><a class="dropdown-item" href="{% url 'jadwalTraining' %}">Jadwal Training</a></li>
-          <li><a class="dropdown-item" href="{% url 'jadwal_bus_list' %}">Jadwal Bus Jemputan</a></li>
+          <li><a class="dropdown-item" href="{% url 'jadwal_bus_list' %}">Jadwal Bus Perusahaan</a></li>
           <li><a class="dropdown-item" href="{% url 'menuKantin' %}">Menu Kantin</a></li>
-          <li><a class="dropdown-item" href="{% url 'satgasPPKS' %}">Satgas PPKS</a></li>
+          <li><a class="dropdown-item" href="{% url 'satgasPPKS' %}">Komite</a></li>
           <li><a class="dropdown-item" href="{% url 'dataUlangTahun' %}">Data Ulang Tahun Hari Ini</a></li>
           <li class="dropdown-submenu">
             <a class="dropdown-item dropdown-toggle" href="#">Submenu</a>
@@ -38,7 +38,7 @@
         <a class="nav-link text-primary" href="{% url 'form_list_prosedur' %}">Prosedur</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-primary" href="{% url 'aturan' %}">Aturan</a>
+        <a class="nav-link text-primary" href="{% url 'aturan_list' %}">Aturan</a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-primary" href="{% url 'form_list' %}">Formulir</a>

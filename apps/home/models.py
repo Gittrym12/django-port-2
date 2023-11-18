@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 class Formmodel(models.Model):
     id = models.AutoField(primary_key=True)
@@ -39,20 +40,11 @@ class JadwalBusM(models.Model):
     id = models.AutoField(primary_key=True)
     titikStart = models.CharField(max_length=30)
     plant = models.CharField(max_length=2)
-    via = models.CharField(max_length=20)
+    via = models.CharField(max_length=55)
     seat = models.IntegerField()
     shift1 = models.CharField(max_length=5, null=True)
     shift2 = models.CharField(max_length=5, null=True)
     shift3 = models.CharField(max_length=5, null=True)
-
-class DataPoint(models.Model):
-    id = models.AutoField(primary_key=True)
-    bulan = models.CharField(max_length=25)
-    divisi = models.CharField(max_length=25, default="divisions")
-    indexs = models.FloatField()
-
-    def __str__(self):
-        return f"{self.bulan} - {self.indexs}"
 
 
 class menuKantinM(models.Model):
@@ -71,3 +63,24 @@ class Announcement(models.Model):
     def __str__(self):
         return self.nama_pengumuman
 
+
+class DataKehadiran(models.Model):
+    id = models.AutoField(primary_key=True)
+    Bulan = models.CharField(max_length=255)
+    divisi = models.CharField(max_length=45)
+    image = models.ImageField(upload_to='images/kehadiran/')
+    tanggal = models.DateField()
+    keterangan = models.TextField()
+
+    def __str__(self):
+        return self.Bulan
+
+class Aturan(models.Model):
+    id = models.AutoField(primary_key=True)
+    title = models.CharField(max_length=255)
+    div_cat = models.CharField(max_length=30)
+    description = models.TextField()
+    pdf_file = models.FileField(upload_to='uploads/aturan_pdfs/')
+
+    def __str__(self):
+        return self.title

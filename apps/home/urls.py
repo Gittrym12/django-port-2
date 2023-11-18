@@ -2,7 +2,8 @@ from django.urls import path, re_path
 from apps.home import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import AnnouncementListView, AnnouncementCreateView, AnnouncementUpdateView, AnnouncementDeleteView
+from .views import AnnouncementListView, AnnouncementCreateView, AnnouncementUpdateView, AnnouncementDeleteView, AturanListView, AturanCreateView, AturanUpdateView, AturanDeleteView, AturanDownloadView
+
 
 # Define URL patterns for your Django application
 
@@ -34,12 +35,10 @@ urlpatterns = [
     path("home/delete_kegiatan/<int:pk>/", views.delete_gallery_kegiatan, name="delete_gallery_kegiatan"),
 
     # Kehadiran related views
-    path("home/indexsKehadiran/", views.chart_data, name="indexsKehadiran"),
-    path("home/indexs_Kehadiran_admin/", views.chart_data_admin, name="chart_data_admin"),
-    path("home/indexs_Kehadiran/", views.chart_data, name="chart_data"),
-    path("home/create_attendance/", views.create_attendance, name="create_attendance"),
-    path("home/update_attendance/<int:pk>/", views.update_attendance, name="update_attendance"),
-    path("home/delete_attendance/<int:pk>/", views.delete_attendance, name="delete_attendance"),
+    path('home/datakehadiran_create/', views.create_data_kehadiran, name='create_datakehadiran'),
+    path('home/datakehadiran_read/', views.read_data_kehadiran, name='read_datakehadiran'),
+    path('home/datakehadiran_update/<int:pk>/', views.update_data_kehadiran, name='update_datakehadiran'),
+    path('home/datakehadiran_delete/<int:pk>/', views.delete_data_kehadiran, name='delete_datakehadiran'),
 
     # Jadwal Bus views
     path("home/jadwal-bus/", views.jadwal_bus, name="jadwal_bus_list"),
@@ -56,13 +55,17 @@ urlpatterns = [
     path("home/delete_menu/<int:pk>/", views.delete_menu, name="delete_menu"),
  
     path('pengumuman/download/<int:pengumuman_id>/', views.download_file_pengumuman, name='download_file_pengumuman'),
-
-
     path('pengumuman/list/', AnnouncementListView.as_view(), name='announcement_list'),
     path('pengumuman/create/', AnnouncementCreateView.as_view(), name='announcement_create'),
     path('pengumuman/update/<int:pk>/', AnnouncementUpdateView.as_view(), name='announcement_update'),
     path('pengumuman/delete/<int:pk>/', AnnouncementDeleteView.as_view(), name='announcement_delete'),
     
+    # aturan views
+    path('home/aturan/', AturanListView.as_view(), name='aturan_list'),
+    path('home/aturan/create/', AturanCreateView.as_view(), name='aturan_create'),
+    path('home/aturan/<int:pk>/edit/', AturanUpdateView.as_view(), name='aturan_edit'),
+    path('home/aturan/<int:pk>/delete/', AturanDeleteView.as_view(), name='aturan_delete'),
+    path('aturan/<int:pk>/download/', AturanDownloadView.as_view(), name='aturan_download'),
 
 
 
@@ -85,6 +88,5 @@ urlpatterns = [
     re_path(r"^.*\.*", views.pages, name="pages"),
 ]
 
-# Serve media files during development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

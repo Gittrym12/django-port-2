@@ -1,0 +1,99 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Dashboard {% endblock title %}
+
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <!-- Header -->
+  <div class="header bg-white ">
+    <div class="container-fluid">
+      <div class="header-body">
+        <div class="row py-4">
+          <div class="col-lg-12" style="text-align: right;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="wrapper1">
+    <div id="container1" style="color: black;">
+        <section class="open-book">
+            <header>
+                <h1>Happy Birthday</h1>
+                <h6>HRD Division</h6>
+            </header>
+            <article>
+              <!-- KIRI -->
+                <h2 class="chapter-title">Happy Birthday</h2>
+                <p></p>
+                <p class="text-quote">
+                  Pada hari istimewa ini, kami ingin mengucapkan selamat ulang tahun yang penuh kebahagiaan untuk anda
+                </p>
+                <p class="text-sign mt-5 mb-5">
+                  -- HRD Division --
+                </p>
+                <dl>
+                    <dt><strong>Kepada</strong></dt>
+                    {% for entry in data %}
+                  <P class="text-list-emp mt-2">{{ entry.NIK }} <span style="font-weight: bold;">{{ entry.Name }}</span> {{ entry.Section }}</P>
+                
+                  {% endfor %}
+                </dl>
+                
+                
+            </article>
+        </section>
+
+    </div>
+</div>
+{% include "includes/footer.html" %}
+  
+
+  <!-- Page content -->
+  <!--
+  <div class="container-fluid mt--6 bg-white">
+    <row>
+      <div class="col-md-10 mx-auto">
+        <div class="card card-stats">
+          <div class="card-body">
+            <h1 class="table-label">List Ulang Tahun Hari ini</h1>
+            <table class="table">
+              <thead class="table-head-bg">
+                <tr>
+                  <th>No</th>
+                  <th>NIK</th>
+                  <th>Nama</th>
+                  <th>Bagian</th>
+                  <th>Jabatan</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for entry in data %}
+                <tr>
+                  <td>{{ forloop.counter0|add:1 }}</td>
+                  <td>{{ entry.NIK }}</td>
+                  <td>{{ entry.Name }}</td>
+                  <td>{{ entry.Section }}</td>
+                  <td>{{ entry.Occupation }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </row>
+    <a id="scrollToTop" href="#" title="Go to top"><i class="ni ni-bold-up"></i></a>
+  </div>--> 
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+<script src="/static/assets/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="/static/assets/vendor/chart.js/dist/Chart.extension.js"></script>
+
+{% endblock javascripts %}

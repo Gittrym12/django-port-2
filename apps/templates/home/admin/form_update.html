@@ -39,15 +39,17 @@
                 <div class="form-group">
                   <label for="category_form">Category Form:</label>
                   <select class="form-control" id="category_form" name="category_form" required>
-                    <option value="Legal" {% if form.category_form.value == 'Legal' %}selected{% endif %}>Legal</option>
-                    <option value="Training" {% if form.category_form.value == 'Training' %}selected{% endif %}>Recruitment and Training</option>
-                    <option value="Wellfare" {% if form.category_form.value == 'Wellfare' %}selected{% endif %}>Medical Welfare</option>
-                    <option value="Attendance" {% if form.category_form.value == 'Wellfare' %}selected{% endif %}>Attendance and Payroll Administration</option>
+                    <option value="Legal"  {% if form.category_form.value == 'Legal' %}selected{% endif %}>Legal</option>
+                    <option value="Recruitment"  {% if form.category_form.value == 'Recruitment' %}selected{% endif %}>Recruitment</option>
+                    <option value="Training"  {% if form.category_form.value == 'Training' %}selected{% endif %}>Training</option>
+                    <option value="Wellfare"  {% if form.category_form.value == 'Wellfare' %}selected{% endif %}>Medical & Welfare</option>
+                    <option value="Legal"  {% if form.category_form.value == 'Legal' %}selected{% endif %}>Legal</option>
+                    <option value="Attendance"  {% if form.category_form.value == 'Attendance' %}selected{% endif %}>Payroll & Administration</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="file_upload">File Upload:</label>
-                  <input type="file" class="form-control-file" id="file_upload" name="file_upload" required>
+                  <input type="file" class="form-control-file" id="file_upload" value="{{ form.file_upload.value }}"name="file_upload" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>              

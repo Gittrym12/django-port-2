@@ -1,21 +1,41 @@
-from django import template
-# from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404
-from django.template import loader
-from django.urls import reverse
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, Visitor, DataPoint, JadwalBusM, menuKantinM, Announcement
-from .forms import FormmodelForm, FormProsedur, GalleryKegiatanForm, DataPointF, JadwalBusF, menuKantinF, AnnouncementForm
-from django.contrib.sessions.models import Session
-from django.utils import timezone
-from datetime import datetime, timedelta
-import pandas as pd
+
+
 import json
 import os
 import glob
+from django import forms
+
+
+from django import template
+from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.models import Session
 from django.db.models import Q
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.http import (
+    HttpResponse, HttpResponseRedirect, JsonResponse, Http404, FileResponse
+)
+from django.template import loader
+from django.urls import reverse, reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, View
+from django.utils import timezone
+from datetime import datetime, timedelta
+import pandas as pd
+
+from .models import (
+    Formmodel, ProsedurM, GalleryKegiatanm, Visitor, JadwalBusM, 
+    menuKantinM, Announcement, DataKehadiran, Aturan
+)
+
+from .forms import (
+    FormmodelForm, FormProsedur, GalleryKegiatanForm, JadwalBusF, 
+    menuKantinF, AnnouncementForm, DataKehadiranForm, AturanForm
+)
+
+
+
+
+
+
 
 
 def get_date_range():
@@ -228,7 +248,7 @@ def dataUlangTahun(request):
     data = [{'NIK': row['NIK'], 'Name': row['NAME'], 'Section': row['SECTION'], 'Occupation': row['OCCUPATION']} for _, row in filtered_data.iterrows()]
 
     # Merender template 'dataUlangTahun.html' dengan data yang telah disiapkan
-    return render(request, 'home/informasi/dataUlangTahuncopy.html', {'data': data})
+    return render(request, 'home/informasi/dataUlangTahunstyle4.html', {'data': data})
 
 ##################################################### END DATA UALNG TAHUN #####################################################
 
@@ -423,60 +443,39 @@ def delete_gallery_kegiatan(request, pk):
 
 
 ##################################################### CHART METHODS #####################################################
-def chart_data_admin(request):
-    data_points = DataPoint.objects.all()
-    
-    # Convert data to a format suitable for Chart.js (e.g., JSON)
-    chart_data = {
-        'labels': [str(dp.bulan) for dp in data_points],
-        'indexs': [dp.indexs for dp in data_points],
-    }
-    
-    return render(request, 'home/admin/indexsKehadiran.html', {'chart_data': json.dumps(chart_data, default=str), 'data_points': data_points})
 
 
-def chart_data(request):
-    data_points = DataPoint.objects.all()
-    # Convert data to a format suitable for Chart.js (e.g., JSON)
-    data = {
-        'labels': [str(dp.bulan) for dp in data_points],
-        'indexs': [dp.indexs for dp in data_points],
-    }
-    return render(request, 'home/informasi/indexsKehadiran.html', {'data': json.dumps(data)})
-
-def create_attendance(request):
+def create_data_kehadiran(request):
     if request.method == 'POST':
-        form = DataPointF(request.POST)
+        form = DataKehadiranForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('chart_data')  # Redirect to the list view after creating
+            return redirect('read_datakehadiran')
     else:
-        form = DataPointF()
-    
+        form = DataKehadiranForm()
     return render(request, 'home/admin/indexsKehadiran_create.html', {'form': form})
 
-def update_attendance(request, pk):
-    data_point = get_object_or_404(DataPoint, pk=pk)
-    
+def read_data_kehadiran(request):
+    data_list = DataKehadiran.objects.all()
+    return render(request, 'home/informasi/indexsKehadiran.html', {'data_list': data_list})
+
+def update_data_kehadiran(request, pk):
+    data = get_object_or_404(DataKehadiran, pk=pk)
     if request.method == 'POST':
-        form = DataPointF(request.POST, instance=data_point)
+        form = DataKehadiranForm(request.POST, request.FILES, instance=data)
         if form.is_valid():
             form.save()
-            return redirect('chart_data')  # Redirect back to the list view after updating
+            return redirect('read_datakehadiran')
     else:
-        form = DataPointF(instance=data_point)
-    return render(request, 'home/admin/indexsKehadiran_update.html', {'form': form, 'chart_data': data_point})
+        form = DataKehadiranForm(instance=data)
+    return render(request, 'home/admin/indexsKehadiran_update.html', {'form': form})
 
-def delete_attendance(request, pk):
-    # Get the DataPoint object to delete or raise a 404 error if it doesn't exist
-    chart_data = get_object_or_404(DataPoint, pk=pk)
+def delete_data_kehadiran(request, pk):
+    data = get_object_or_404(DataKehadiran, pk=pk)
+    data.delete()
+    return redirect('read_datakehadiran')
 
-    if request.method == 'POST':
-        # If it's a POST request, delete the object
-        chart_data.delete()
-        return redirect('chart_data')  # Redirect to the list view after deleting
-    else:
-        return render(request, 'home/admin/indexsKehadiran_delete.html', {'chart_data': chart_data})
+
 ##################################################### END CHART METHHODS #####################################################
 
 
@@ -525,7 +524,7 @@ def jadwal_bus_delete(request, pk):
 
 ##################################################### PENGUMUMAN METHODS #####################################################
 # @login_required(login_url="/login/")
-from django import forms
+
 
 class AnnouncementFilterForm(forms.Form):
     q = forms.CharField(required=False)
@@ -597,6 +596,40 @@ def download_file_pengumuman(request, announcement_id):
         response = HttpResponse(f.read(), content_type="application/octet-stream")
         response["Content-Disposition"] = "attachment; filename=" + announcement_instance.file_pengumuman.name
         return response
+    
+
+##################################################### CHART METHODS #####################################################
+
+
+class AturanListView(ListView):
+    model = Aturan
+    template_name = 'home/aturan_list.html'
+
+class AturanDownloadView(View):
+    def get(self, request, pk):
+        aturan = get_object_or_404(Aturan, pk=pk)
+        response = FileResponse(aturan.pdf_file, as_attachment=True)
+        return response
+
+class AturanCreateView(CreateView):
+    model = Aturan
+    form_class = AturanForm
+    template_name = 'home/admin/aturan_create.html'
+    success_url = reverse_lazy('aturan_list')
+
+class AturanUpdateView(UpdateView):
+    model = Aturan
+    form_class = AturanForm
+    template_name = 'home/admin/aturan_update.html'
+
+class AturanDeleteView(DeleteView):
+    model = Aturan
+    success_url = reverse_lazy('aturan_list')
+    template_name = 'home/admin/aturan_delete.html'
+
+
+##################################################### END CHART METHHODS #####################################################
+
 
 '''
 def pengumuman_list(request):

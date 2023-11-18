@@ -1,7 +1,6 @@
 from django import forms
-from .models import Formmodel, ProsedurM, GalleryKegiatanm, DataPoint, JadwalBusM, menuKantinM, Announcement
-from django.core.exceptions import ValidationError# forms.py
-
+from .models import Formmodel, ProsedurM, GalleryKegiatanm, JadwalBusM, menuKantinM, Announcement, DataKehadiran, Aturan
+from django.core.exceptions import ValidationError
 
 class FormmodelForm(forms.ModelForm):
     class Meta:
@@ -18,12 +17,6 @@ class GalleryKegiatanForm(forms.ModelForm):
     class Meta:
         model = GalleryKegiatanm
         fields = ['title', 'image']  # Include the fields you want in the form
-
-
-class DataPointF(forms.ModelForm):
-    class Meta:
-        model = DataPoint
-        fields = "__all__"
 
 
 class JadwalBusF(forms.ModelForm):
@@ -55,3 +48,13 @@ class AnnouncementForm(forms.ModelForm):
             'tanggal_upload': forms.DateInput(attrs={'type': 'date'}),
         }
 
+
+class DataKehadiranForm(forms.ModelForm):
+    class Meta:
+        model = DataKehadiran
+        fields = '__all__'
+
+class AturanForm(forms.ModelForm):
+    class Meta:
+        model = Aturan
+        fields = ['title', 'description', 'pdf_file']

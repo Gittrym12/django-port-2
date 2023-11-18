@@ -26,56 +26,26 @@
         <div class="col-md-10 mx-auto">
           <div class="card card-stats">
             <div class="card-body">
-              <div class="row">
-                  <div class="table-responsive">
-                      <h1 class="table-label">Data Points</h1>
-                      <table class="table">
-                          <thead class="table-head-bg">
-                              <tr>
-                                  <th>Date</th>
-                                  <th>Value</th>
-                                  <th>Action</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              {% for dp in data_points %}
-                              <tr>
-                                  <td>{{ dp.date }}</td>
-                                  <td>{{ dp.value }}</td>
-                                  <td>
-                                      <div class="d-flex">
-                                          <a href="{% url 'update_attendance' dp.id %}" class="btn btn-info mb-1">
-                                              <i class="fas fa-edit"></i>
-                                          </a>
-                                          <form method="post" action="{% url 'delete_attendance' dp.id %}">
-                                              {% csrf_token %}
-                                              <button type="submit" class="btn btn-danger">
-                                                  <i class="fas fa-trash"></i>
-                                              </button>
-                                          </form>
-                                      </div>
-                                  </td>
-                              </tr>
-                              {% empty %}
-                              <tr>
-                                  <td colspan="3">No Data Points available.</td>
-                              </tr>
-                              {% endfor %}
-                          </tbody>
-                      </table>
-                      <a href="{% url 'create_attendance' %}" class="btn btn-success mt-3">
-                          <i class="fas fa-edit"></i>
-                      </a>
-                  </div>
-              </div>
+              {% for data_kehadiran in data_list %}
+              <p>{{ data_kehadiran.Bulan }}, {{ data_kehadiran.divisi }}, {{ data_kehadiran.tanggal }}, {{ data_kehadiran.keterangan }}</p>
+              {% if data_kehadiran.image %}
+                  <img src="{{ data_kehadiran.image.url }}" alt="Data Kehadiran Image">
+              {% else %}
+                  <p>No image available</p>
+              {% endif %}
+              <a href="{% url 'update_datakehadiran' pk=data_kehadiran.pk %}">Edit</a>
+              <a href="{% url 'delete_datakehadiran' pk=data_kehadiran.pk %}">Delete</a>
+              {% endfor %}
+              
+              <!-- Other content goes here -->
+              
             </div>
           </div>
         </div>
       </row>
       <a id="scrollToTop" href="#" title="Go to top"><i class="ni ni-bold-up"></i></a>
-      
-  
     </div>
+
     {% include "includes/footer.html" %}
 
 {% endblock content %}
