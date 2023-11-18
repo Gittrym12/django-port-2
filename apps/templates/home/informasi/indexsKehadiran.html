@@ -24,11 +24,16 @@
             <div class="col-md-10 mx-auto">
                 <div class="card card-stats">
                     <div class="card-body">
+
+                        <img src="{{ '/media/images/kehadiran/people1.png' }}" alt="this img must display" srcset="">
+
                         <h1 class="table-label text-center mt-4">GRAFIK KEHADIRAN YPMI 2023</h1>
                         {% for data_kehadiran in data_list %}
                             <p class="text-primary">{{ data_kehadiran.Bulan }}, {{ data_kehadiran.divisi }}, {{ data_kehadiran.tanggal }}, {{ data_kehadiran.keterangan }}</p>
                             {% if data_kehadiran.image %}
-                                <img src="{{ data_kehadiran.image.url }}" alt="Data Kehadiran Image">
+                            <p class="text-dark">Image URL: {{ data_kehadiran.image.url }}</p>
+                            <img src="{{ data_kehadiran.image.url }}" class="img-fluid" alt="Data Kehadiran Image">
+                            
                             {% else %}
                                 <p>No image available</p>
                             {% endif %}

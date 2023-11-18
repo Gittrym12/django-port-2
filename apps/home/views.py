@@ -445,11 +445,14 @@ def delete_gallery_kegiatan(request, pk):
 ##################################################### CHART METHODS #####################################################
 
 
+
 def create_data_kehadiran(request):
     if request.method == 'POST':
         form = DataKehadiranForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            data_kehadiran = form.save(commit=False)
+            # Set other fields if needed
+            data_kehadiran.save()
             return redirect('read_datakehadiran')
     else:
         form = DataKehadiranForm()
@@ -464,7 +467,9 @@ def update_data_kehadiran(request, pk):
     if request.method == 'POST':
         form = DataKehadiranForm(request.POST, request.FILES, instance=data)
         if form.is_valid():
-            form.save()
+            data_kehadiran = form.save(commit=False)
+            # Set other fields if needed
+            data_kehadiran.save()
             return redirect('read_datakehadiran')
     else:
         form = DataKehadiranForm(instance=data)
@@ -474,6 +479,7 @@ def delete_data_kehadiran(request, pk):
     data = get_object_or_404(DataKehadiran, pk=pk)
     data.delete()
     return redirect('read_datakehadiran')
+
 
 
 ##################################################### END CHART METHHODS #####################################################
