@@ -28,39 +28,50 @@
               <h1>Edit Jadwal Bus</h1>
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                
                 <div class="form-group">
-                    <label for="titikStart">titikStart:</label>
-                    <input type="text" class="form-control" id="titikStart" name="titikStart" value="{{ form.titikStart.value }}" required placeholder="Enter titikStart">
+                    <label for="titikStart">Titik Start:</label>
+                    <input type="text" class="form-control" id="titikStart" name="titikStart" value="{{ form.instance.titikStart }}" required>
                 </div>
+                
                 <div class="form-group">
-                  <label for="plant">plant Form:</label>
-                  <select class="form-control" id="plant" name="plant" required>
-                    <option value="1" {% if form.plant.value == '1' %}selected{% endif %}>1</option>
-                    <option value="2" {% if form.plant.value == '2' %}selected{% endif %}>2</option>
-                  </select>
+                    <label for="plant">Plant:</label>
+                    <select class="form-control" id="plant" name="plant" required>
+                        <option value="1" {% if form.instance.plant == '1' %}selected{% endif %}>1</option>
+                        <option value="2" {% if form.instance.plant == '2' %}selected{% endif %}>2</option>
+                    </select>
                 </div>
+                
                 <div class="form-group">
-                  <label for="via">via:</label>
-                  <input type="text" class="form-control" id="via" name="via" value="{{ form.via.value }}" required placeholder="Enter via">
+                    <label for="via">Rute:</label>
+                    <input type="text" class="form-control" id="via" name="via" value="{{ form.instance.via }}" required>
                 </div>
+                
                 <div class="form-group">
-                  <label for="seat">seat:</label>
-                  <input type="number" class="form-control" id="seat" name="seat" value="{{ form.seat.value }}" required placeholder="Enter seat">
+                    <label for="seat">Seat:</label>
+                    <input type="number" class="form-control" id="seat" name="seat" value="{{ form.instance.seat }}" required>
                 </div>
+                
                 <div class="form-group">
-                  <label for="shift1">shift1:</label>
-                  <input type="text" class="form-control" id="shift1" name="shift1" value="{{ form.shift1.value }}" required placeholder="Enter shift1">
+                    <label for="shift1">Shift 1:</label>
+                    <input type="text" class="form-control" id="shift1" name="shift1" value="{{ form.instance.shift1 }}" required>
                 </div>
+                
                 <div class="form-group">
-                  <label for="shift2">shift2:</label>
-                  <input type="text" class="form-control" id="shift2" name="shift2" value="{{ form.shift2.value }}" required placeholder="Enter shift2">
+                    <label for="shift2">Shift 2:</label>
+                    <input type="text" class="form-control" id="shift2" name="shift2" value="{{ form.instance.shift2 }}" required>
                 </div>
+                
                 <div class="form-group">
-                  <label for="shift3">shift3:</label>
-                  <input type="text" class="form-control" id="shift3" name="shift3" value="{{ form.shift3.value }}" required placeholder="Enter shift3">
+                    <label for="shift3">Shift 3:</label>
+                    <input type="text" class="form-control" id="shift3" name="shift3" value="{{ form.instance.shift3 }}" required>
                 </div>
+                
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
+            
+            
+            
             </div>            
           </div>
         </div>

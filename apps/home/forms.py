@@ -22,7 +22,8 @@ class GalleryKegiatanForm(forms.ModelForm):
 class JadwalBusF(forms.ModelForm):
     class Meta:
         model = JadwalBusM
-        fields = "__all__"
+        fields = '__all__'
+
 
 
 def validate_file_extension(value):

@@ -451,12 +451,20 @@ def create_data_kehadiran(request):
         form = DataKehadiranForm(request.POST, request.FILES)
         if form.is_valid():
             data_kehadiran = form.save(commit=False)
+            
+            # Check if the uploaded file is an image
+            image = form.cleaned_data['image']
+            if not image.content_type.startswith('image'):
+                form.add_error('image', 'Uploaded file is not an image.')
+                return render(request, 'home/admin/indexsKehadiran_create.html', {'form': form})
+            
             # Set other fields if needed
             data_kehadiran.save()
             return redirect('read_datakehadiran')
     else:
         form = DataKehadiranForm()
     return render(request, 'home/admin/indexsKehadiran_create.html', {'form': form})
+
 
 def read_data_kehadiran(request):
     data_list = DataKehadiran.objects.all()
@@ -508,14 +516,21 @@ def jadwal_bus_create(request):
         form = JadwalBusF()
     return render(request, "home/admin/jadwalBus_create.html", {"form": form})
 
+
+
 def jadwal_bus_update(request, pk):
-    form = get_object_or_404(JadwalBusM, pk=pk)
+    instance = get_object_or_404(JadwalBusM, pk=pk)
+
     if request.method == "POST":
-        form = JadwalBusF(request.POST, request.FILES, instance=form)
+        form = JadwalBusF(request.POST, request.FILES, instance=instance)
         if form.is_valid():
             form.save()
             return redirect("jadwal_bus_list")  # Use the correct URL name
+    else:
+        form = JadwalBusF(instance=instance)
+
     return render(request, "home/admin/jadwalBus_update.html", {"form": form})
+
 
 def jadwal_bus_delete(request, pk):
     form = get_object_or_404(JadwalBusM, pk=pk)
@@ -571,6 +586,11 @@ class AnnouncementListView(ListView):
         context["form"] = self.form_class(self.request.GET)
         return context
 
+class AnnouncementAdminListView(ListView):
+    model = Announcement
+    template_name = "home/admin/pengumumanList.html"
+    context_object_name = 'pengumumans'
+    
 
 class AnnouncementCreateView(CreateView):
     model = Announcement

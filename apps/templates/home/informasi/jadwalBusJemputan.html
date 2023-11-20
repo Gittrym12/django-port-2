@@ -47,114 +47,134 @@
 
                 <!-- plant1 -->
                 <div class="tab-pane fade show active" id="pills-plant1" role="tabpanel" aria-labelledby="pills-home-tab">
-                 <!-------------------- TABLE BUS PLANT 1 -------------------->
-                <div class="table-responsive mt-5">
-                  <h1 class="table-label">Jadwal Bus Jemputan Plant 1</h1>
-                  <table class="table">
-                      <thead class="table-head-bg">
-                          <tr>
-                              <th>No</th>
-                              <th>Titik Start</th>
-                              <th>Rute</th>
-                              <th>Seat</th>
-                              <th>Shift-1</th>
-                              <th>Shift-2</th>
-                              <th>Shift-3</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          {% for form in forms %}
-                            {% if form.plant == "1" %}
-                              <tr>
-                                <td>{{ forloop.counter0|add:1 }}</td>
-                                <td>{{ form.titikStart }}</td>
-                                <td>{{ form.via }}</td>
-                                <td>{{ form.seat }}</td>
-                                <td>{{ form.shift1 }}</td>
-                                <td>{{ form.shift2 }}</td>
-                                <td>{{ form.shift3 }}</td>
-                              </tr>
-                            {% endif %}
-                          {% empty %}
-                          <tr>
-                              <td colspan="8">No Jadwal Bus available.</td>
-                          </tr>
-                          {% endfor %}
-                      </tbody>
-                    </table>
-                </div>
-                <!-------------------- END TABLE BUS PLANT 1 -------------------->
-                </div>
-
-                <!-- plat2 -->
-                <div class="tab-pane fade show" id="pills-plant2" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <!-------------------- TABLE BUS PLANT 1 -------------------->
                   <div class="table-responsive mt-5">
-                    <h1 class="table-label">Jadwal Bus Jemputan Plant 2</h1>
-                    <table class="table">
-                        <thead class="table-head-bg">
-                            <tr>
-                                <th>No</th>
-                                <th>Titik Start</th>
-                                <th>Rute</th>
-                                <th>Seat</th>
-                                <th>Shift-1</th>
-                                <th>Shift-2</th>
-                                <th>Shift-3</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for form in forms %}
-                              {% if form.plant == "2" %}
-                                <tr>
-                                  <td>{{ forloop.counter0|add:1 }}</td>
-                                  <td>{{ form.titikStart }}</td>
-                                  <td>{{ form.via }}</td>
-                                  <td>{{ form.seat }}</td>
-                                  <td>{{ form.shift1 }}</td>
-                                  <td>{{ form.shift2 }}</td>
-                                  <td>{{ form.shift3 }}</td>
-                                </tr>
-                              {% endif %}
-                            {% empty %}
-                            <tr>
-                                <td colspan="8">No Jadwal Bus available.</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
+                      <h1 class="table-label">Jadwal Bus Jemputan Plant 1</h1>
+                      <table class="table">
+                          <thead class="table-head-bg">
+                              <tr>
+                                  <th>#</th>
+                                  <th>Titik Start</th>
+                                  <th>Rute</th>
+                                  <th>Seat</th>
+                                  <th>Shift-1</th>
+                                  <th>Shift-2</th>
+                                  <th>Shift-3</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% with counter1=1 %}
+                              {% for form in forms %}
+                                  {% if form.plant == "1" %}
+                                      <tr>
+                                          <td>{{ counter1 }}</td>
+                                          <td>{{ form.titikStart }}</td>
+                                          <td>{{ form.via }}</td>
+                                          <td>{{ form.seat }}</td>
+                                          <td>{{ form.shift1 }}</td>
+                                          <td>{{ form.shift2 }}</td>
+                                          <td>{{ form.shift3 }}</td>
+                                      </tr>
+                                      {% with counter1=counter1|add:1 %}
+                                      {% endwith %}
+                                  {% endif %}
+                              {% empty %}
+                                  <tr>
+                                      <td colspan="8">No Jadwal Bus available.</td>
+                                  </tr>
+                              {% endfor %}
+                              {% endwith %}
+                          </tbody>
+                      </table>
+                  </div>
+                  <!-------------------- END TABLE BUS PLANT 1 -------------------->
+              </div>
+              
+              <!-- plat2 -->
+              <div class="tab-pane fade show" id="pills-plant2" role="tabpanel" aria-labelledby="pills-home-tab">
+                  <div class="table-responsive mt-5">
+                      <h1 class="table-label">Jadwal Bus Jemputan Plant 2</h1>
+                      <table class="table">
+                          <thead class="table-head-bg">
+                              <tr>
+                                  <th>#</th>
+                                  <th>Titik Start</th>
+                                  <th>Rute</th>
+                                  <th>Seat</th>
+                                  <th>Shift-1</th>
+                                  <th>Shift-2</th>
+                                  <th>Shift-3</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              {% with counter2=1 %}
+                              {% for form in forms %}
+                                  {% if form.plant == "2" %}
+                                      <tr>
+                                          <td>{{ counter2 }}</td>
+                                          <td>{{ form.titikStart }}</td>
+                                          <td>{{ form.via }}</td>
+                                          <td>{{ form.seat }}</td>
+                                          <td>{{ form.shift1 }}</td>
+                                          <td>{{ form.shift2 }}</td>
+                                          <td>{{ form.shift3 }}</td>
+                                      </tr>
+                                      {% with counter2=counter2|add:1 %}
+                                      {% endwith %}
+                                  {% endif %}
+                              {% empty %}
+                                  <tr>
+                                      <td colspan="8">No Jadwal Bus available.</td>
+                                  </tr>
+                              {% endfor %}
+                              {% endwith %}
+                          </tbody>
                       </table>
                   </div> 
-                </div>
+              </div>
+              
+              
+              
 
                 <!-- shuttle -->
                 <div class="tab-pane fade show" id="pills-shuttle" role="tabpanel" aria-labelledby="pills-home-tab">
                   <div class="table-responsive mt-5">
                     <h1 class="table-label">Jadwal Shuttle Bus, Plant 1  ↔  Plant 2
                     </h1>
-                    <table class="table">
-                        <thead class="table-head-bg">
-                            <tr>
-                                <th>Titik Start</th>
-                                <th>I</th>
-                                <th>II</th>
-                                <th>III</th>
-                                <th>IV</th>
-                            </tr>
-                        </thead>
+                    <table class="table text-center">
+
+                      <thead class="table-head-bg" >
+                        <tr >
+                          <th rowspan="2" style="vertical-align: middle; width: 20%; border: 1px solid #ffff;">Keberangkatan</th>
+                          <th colspan="2" style="border: 1px solid #ffff;">Titik Start</th>
+                        </tr>
+                        <tr>
+                          <th style="border: 1px solid #ffff;">Plant 1</th>
+                          <th style="border: 1px solid #ffff;">Plant 2</th>
+                        </tr>
+                      </thead>
                         <tbody>
                           <tr>
-                            <td>Plant 1</td>
+                            <td>1</td>
                             <td>08.00</td>
-                            <td>10.00</td>
-                            <td>13.00</td>
-                            <td>15.00</td>
+                            <td>08.15</td>
                           </tr>
                           <tr>
-                            <td>Plant 2</td>
-                            <td>08.15</td>
+                            <td>2</td>
+                            <td>10.00</td>
                             <td>11.30</td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>13.00</td>
                             <td>13.15</td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td>15.00</td>
                             <td>16.00</td>
                           </tr>
+
                         </tbody>
                       </table>
                   </div> 

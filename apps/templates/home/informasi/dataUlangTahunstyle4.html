@@ -35,10 +35,9 @@
                   -- HRD Division --
                 </p>
                 <dl>
-                    <dt><strong>Kepada</strong></dt>
-                    {% for entry in data %}
-                  <P class="text-list-emp mt-2">{{ entry.NIK }} <span style="font-weight: bold;">{{ entry.Name }}</span> {{ entry.Section }}</P>
-                
+                  <dt><strong>Kepada</strong></dt>
+                  {% for entry in data %}
+                    <P class="text-list-emp mt-2">{{ entry.NIK }} <span style="font-weight: bold;">{{ entry.Name }}</span> {{ entry.Section }}</P>
                   {% endfor %}
                 </dl>
                 

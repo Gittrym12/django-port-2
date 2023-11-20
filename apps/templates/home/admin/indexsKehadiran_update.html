@@ -10,7 +10,6 @@
     <!-- Header -->
     <div class="header bg-white pb-6">
       <div class="container-fluid">
-        
         <div class="header-body">
           <div class="row py-4">
             <div class="col-lg-12" style="text-align: right;">           
@@ -19,7 +18,6 @@
         </div>
       </div>
     </div>
-
     <div class="container-fluid mt--6 bg-white">
       <div class="row">
         <div class="col-md-10 mx-auto">
@@ -29,108 +27,55 @@
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="bulan">Bulan:</label>
-                    <select class="form-control" id="bulan" name="bulan" required>
-                        <option value="Januari" {% if form.bulan.value == 'Januari' %}selected{% endif %}>Januari</option>
-                        <option value="Februari" {% if form.bulan.value == 'Februari' %}selected{% endif %}>Februari</option>
-                        <option value="Maret" {% if form.bulan.value == 'Maret' %}selected{% endif %}>Maret</option>
-                        <option value="April" {% if form.bulan.value == 'April' %}selected{% endif %}>April</option>
-                        <option value="Mei" {% if form.bulan.value == 'Mei' %}selected{% endif %}>Mei</option>
-                        <option value="Juni" {% if form.bulan.value == 'Juni' %}selected{% endif %}>Juni</option>
-                        <option value="Juli" {% if form.bulan.value == 'Juli' %}selected{% endif %}>Juli</option>
-                        <option value="Agustus" {% if form.bulan.value == 'Agustus' %}selected{% endif %}>Agustus</option>
-                        <option value="September" {% if form.bulan.value == 'September' %}selected{% endif %}>September</option>
-                        <option value="Oktober" {% if form.bulan.value == 'Oktober' %}selected{% endif %}>Oktober</option>
-                        <option value="November" {% if form.bulan.value == 'November' %}selected{% endif %}>November</option>
-                        <option value="Desember" {% if form.bulan.value == 'Desember' %}selected{% endif %}>Desember</option>
-                        <!-- Add other options for months -->
-                    </select>
-                </div>
-            
-                <div class="form-group">
-                    <label for="divisi">Division:</label>
-                    <select class="form-control" id="divisi" name="divisi" required>
-                        <option value="YPMI" {% if form.divisi.value == 'YPMI' %}selected{% endif %}>YPMI</option>
-                        <option value="PROD_PLANNING_DELIVERY"{% if form.divisi.value == 'PROD_PLANNING_DELIVERY' %}selected{% endif %}>PROD PLANNING & DELIVERY</option>
-                        <option value="QUALITY_ASSURANCE" {% if form.divisi.value == 'QUALITY_ASSURANCE' %}selected{% endif %}>QUALITY ASSURANCE</option>
-                        <option value="STEEL_PRODUCTION" {% if form.divisi.value == 'STEEL_PRODUCTION' %}selected{% endif %}>STEEL PRODUCTION</option>
-                        <option value="STEEL_PRODUCTION_ENGINEERING" {% if form.divisi.value == 'STEEL_PRODUCTION_ENGINEERING' %}selected{% endif %}>STEEL PRODUCTION ENGINEERING</option>
-                        <option value="MAINTENANCE" {% if form.divisi.value == 'MAINTENANCE' %}selected{% endif %}>MAINTENANCE</option>
-                        <option value="INVENTORY_CONTROL"  {% if form.divisi.value == 'INVENTORY_CONTROL' %}selected{% endif %}>INVENTORY CONTROL</option>
-                        <option value="FINANCE"  {% if form.divisi.value == 'FINANCE' %}selected{% endif %}>FINANCE</option>
-                        <option value="PROD_STRATEGY"  {% if form.divisi.value == 'PROD_STRATEGY' %}selected{% endif %}>PROD. STRATEGY</option>
-                        <option value="GENERAL_AFFAIRS"  {% if form.divisi.value == 'GENERAL_AFFAIRS' %}selected{% endif %}>GENERAL AFFAIRS</option>
-                        <option value="HUMAN_RESOURCES_DEPARTMENT"  {% if form.divisi.value == 'HUMAN_RESOURCES_DEPARTMENT' %}selected{% endif %}>HUMAN RESOURCES DEPARTMENT</option>
-                        <option value="ALUMINIUM_PRODUCTION"  {% if form.divisi.value == 'ALUMINIUM_PRODUCTION' %}selected{% endif %}>ALUMINIUM PRODUCTION</option>
-                        <option value="BUSINESS_MANUFACTURING_DEVELOPMENT"  {% if form.divisi.value == 'BUSINESS_MANUFACTURING_DEVELOPMENT' %}selected{% endif %}>BUSINESS & MANUFACTURING DEVELOPMENT</option>
-                        <option value="ALUMINIUM_PRODUCTION_ENGINEERING"  {% if form.divisi.value == 'ALUMINIUM_PRODUCTION_ENGINEERING' %}selected{% endif %}>ALUMINIUM PRODUCTION ENGINEERING</option>
-                        <!-- Add other options for divisions -->
-                    </select>
-                </div>
-            
-                <div class="form-group">
-                    <label for="indexs">All value:</label>
-                    <input type="number" class="form-control" id="indexs" name="indexs" value="{{ form.indexs.value }}" step="0.01" title="Gunakan format angka atau desimal (contoh: 97.31)">
-                </div>
-            
-                <!-- TERTINGGI  -->
-                <div class="form-group">
-                    <label for="tertinggiLabel">Tertinggi:</label>
-                    <select class="form-control" id="tertinggiLabel" name="tertinggiLabel" required>
-                        <option value="YPMI" {% if form.tertinggiLabel.value == 'YPMI' %}selected{% endif %}>YPMI</option>
-                        <option value="PROD_PLANNING_DELIVERY"{% if form.tertinggiLabel.value == 'PROD_PLANNING_DELIVERY' %}selected{% endif %}>PROD PLANNING & DELIVERY</option>
-                        <option value="QUALITY_ASSURANCE" {% if form.tertinggiLabel.value == 'QUALITY_ASSURANCE' %}selected{% endif %}>QUALITY ASSURANCE</option>
-                        <option value="STEEL_PRODUCTION" {% if form.tertinggiLabel.value == 'STEEL_PRODUCTION' %}selected{% endif %}>STEEL PRODUCTION</option>
-                        <option value="STEEL_PRODUCTION_ENGINEERING" {% if form.tertinggiLabel.value == 'STEEL_PRODUCTION_ENGINEERING' %}selected{% endif %}>STEEL PRODUCTION ENGINEERING</option>
-                        <option value="MAINTENANCE" {% if form.tertinggiLabel.value == 'MAINTENANCE' %}selected{% endif %}>MAINTENANCE</option>
-                        <option value="INVENTORY_CONTROL"  {% if form.tertinggiLabel.value == 'INVENTORY_CONTROL' %}selected{% endif %}>INVENTORY CONTROL</option>
-                        <option value="FINANCE"  {% if form.tertinggiLabel.value == 'FINANCE' %}selected{% endif %}>FINANCE</option>
-                        <option value="PROD_STRATEGY"  {% if form.tertinggiLabel.value == 'PROD_STRATEGY' %}selected{% endif %}>PROD. STRATEGY</option>
-                        <option value="GENERAL_AFFAIRS"  {% if form.tertinggiLabel.value == 'GENERAL_AFFAIRS' %}selected{% endif %}>GENERAL AFFAIRS</option>
-                        <option value="HUMAN_RESOURCES_DEPARTMENT"  {% if form.tertinggiLabel.value == 'HUMAN_RESOURCES_DEPARTMENT' %}selected{% endif %}>HUMAN RESOURCES DEPARTMENT</option>
-                        <option value="ALUMINIUM_PRODUCTION"  {% if form.tertinggiLabel.value == 'ALUMINIUM_PRODUCTION' %}selected{% endif %}>ALUMINIUM PRODUCTION</option>
-                        <option value="BUSINESS_MANUFACTURING_DEVELOPMENT"  {% if form.tertinggiLabel.value == 'BUSINESS_MANUFACTURING_DEVELOPMENT' %}selected{% endif %}>BUSINESS & MANUFACTURING DEVELOPMENT</option>
-                        <option value="ALUMINIUM_PRODUCTION_ENGINEERING"  {% if form.tertinggiLabel.value == 'ALUMINIUM_PRODUCTION_ENGINEERING' %}selected{% endif %}>ALUMINIUM PRODUCTION ENGINEERING</option>
-                        <!-- Add other options for divisions -->
+                  <label for="Bulan">Bulan:</label>
+                    <select class="form-control" id="Bulan" name="Bulan" required>
+                        <option value="Januari" {% if form.Bulan.value == 'Januari' %}selected{% endif %}>Januari</option>
+                        <option value="Februari" {% if form.Bulan.value == 'Februari' %}selected{% endif %}>Februari</option>
+                        <option value="Maret" {% if form.Bulan.value == 'Maret' %}selected{% endif %}>Maret</option>
+                        <option value="April" {% if form.Bulan.value == 'April' %}selected{% endif %}>April</option>
+                        <option value="Mei" {% if form.Bulan.value == 'Mei' %}selected{% endif %}>Mei</option>
+                        <option value="Juni" {% if form.Bulan.value == 'Juni' %}selected{% endif %}>Juni</option>
+                        <option value="Juli" {% if form.Bulan.value == 'Juli' %}selected{% endif %}>Juli</option>
+                        <option value="Agustus" {% if form.Bulan.value == 'Agustus' %}selected{% endif %}>Agustus</option>
+                        <option value="September" {% if form.Bulan.value == 'September' %}selected{% endif %}>September</option>
+                        <option value="Oktober" {% if form.Bulan.value == 'Oktober' %}selected{% endif %}>Oktober</option>
+                        <option value="November" {% if form.Bulan.value == 'November' %}selected{% endif %}>November</option>
+                        <option value="Desember" {% if form.Bulan.value == 'Desember' %}selected{% endif %}>Desember</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="tertinggiValue">Tertinggi value:</label>
-                    <input type="number" class="form-control" id="tertinggiValue" name="tertinggiValue" value="{{ form.tertinggiValue.value }}" step="0.01" title="Gunakan format angka atau desimal (contoh: 97.31)">
-                </div>
-                <!-- TERTINGGI  -->
-            
-                <!-- TERENDAH  -->
-                <div class="form-group">
-                    <label for="terendahLabel">Terendah:</label>
-                    <select class="form-control" id="terendahLabel" name="terendahLabel" required>
-                        <option value="PROD_PLANNING_DELIVERY" {% if form.terendahLabel.value == 'PROD_PLANNING_DELIVERY' %}selected{% endif %}>YPMI</option>
-                        <option value="YPMI" {% if form.terendahLabel.value == 'YPMI' %}selected{% endif %}>YPMI</option>
-                        <option value="PROD_PLANNING_DELIVERY"{% if form.terendahLabel.value == 'PROD_PLANNING_DELIVERY' %}selected{% endif %}>PROD PLANNING & DELIVERY</option>
-                        <option value="QUALITY_ASSURANCE" {% if form.terendahLabel.value == 'QUALITY_ASSURANCE' %}selected{% endif %}>QUALITY ASSURANCE</option>
-                        <option value="STEEL_PRODUCTION" {% if form.terendahLabel.value == 'STEEL_PRODUCTION' %}selected{% endif %}>STEEL PRODUCTION</option>
-                        <option value="STEEL_PRODUCTION_ENGINEERING" {% if form.terendahLabel.value == 'STEEL_PRODUCTION_ENGINEERING' %}selected{% endif %}>STEEL PRODUCTION ENGINEERING</option>
-                        <option value="MAINTENANCE" {% if form.terendahLabel.value == 'MAINTENANCE' %}selected{% endif %}>MAINTENANCE</option>
-                        <option value="INVENTORY_CONTROL"  {% if form.terendahLabel.value == 'INVENTORY_CONTROL' %}selected{% endif %}>INVENTORY CONTROL</option>
-                        <option value="FINANCE"  {% if form.terendahLabel.value == 'FINANCE' %}selected{% endif %}>FINANCE</option>
-                        <option value="PROD_STRATEGY"  {% if form.terendahLabel.value == 'PROD_STRATEGY' %}selected{% endif %}>PROD. STRATEGY</option>
-                        <option value="GENERAL_AFFAIRS"  {% if form.terendahLabel.value == 'GENERAL_AFFAIRS' %}selected{% endif %}>GENERAL AFFAIRS</option>
-                        <option value="HUMAN_RESOURCES_DEPARTMENT"  {% if form.terendahLabel.value == 'HUMAN_RESOURCES_DEPARTMENT' %}selected{% endif %}>HUMAN RESOURCES DEPARTMENT</option>
-                        <option value="ALUMINIUM_PRODUCTION"  {% if form.terendahLabel.value == 'ALUMINIUM_PRODUCTION' %}selected{% endif %}>ALUMINIUM PRODUCTION</option>
-                        <option value="BUSINESS_MANUFACTURING_DEVELOPMENT"  {% if form.terendahLabel.value == 'BUSINESS_MANUFACTURING_DEVELOPMENT' %}selected{% endif %}>BUSINESS & MANUFACTURING DEVELOPMENT</option>
-                        <option value="ALUMINIUM_PRODUCTION_ENGINEERING"  {% if form.terendahLabel.value == 'ALUMINIUM_PRODUCTION_ENGINEERING' %}selected{% endif %}>ALUMINIUM PRODUCTION ENGINEERING</option>
-                        <!-- Add other options for divisions -->
-                    </select>
+                  <label for="divisi">division:</label>
+                  <select class="form-control" id="divisi" name="divisi" required>
+                      <option value="YPMI" {% if form.divisi.value == 'YPMI' %}selected{% endif %}>YPMI</option>
+                      <option value="PROD_PLANNING_DELIVERY" {% if form.divisi.value == 'PROD_PLANNING_DELIVERY' %}selected{% endif %}>PROD PLANNING & DELIVERY</option>
+                      <option value="QUALITY_ASSURANCE" {% if form.divisi.value == 'QUALITY_ASSURANCE' %}selected{% endif %}>QUALITY ASSURANCE</option>
+                      <option value="STEEL_PRODUCTION" {% if form.divisi.value == 'STEEL_PRODUCTION' %}selected{% endif %}>STEEL PRODUCTION</option>
+                      <option value="STEEL_PRODUCTION_ENGINEERING" {% if form.divisi.value == 'STEEL_PRODUCTION_ENGINEERING' %}selected{% endif %}>STEEL PRODUCTION ENGINEERING</option>
+                      <option value="MAINTENANCE" {% if form.divisi.value == 'MAINTENANCE' %}selected{% endif %}>MAINTENANCE</option>
+                      <option value="INVENTORY_CONTROL" {% if form.divisi.value == 'INVENTORY_CONTROL' %}selected{% endif %}>INVENTORY CONTROL</option>
+                      <option value="FINANCE" {% if form.divisi.value == 'FINANCE' %}selected{% endif %}>FINANCE</option>
+                      <option value="PROD_STRATEGY" {% if form.divisi.value == 'PROD_STRATEGY' %}selected{% endif %}>PROD. STRATEGY</option>
+                      <option value="GENERAL_AFFAIRS" {% if form.divisi.value == 'GENERAL_AFFAIRS' %}selected{% endif %}>GENERAL AFFAIRS</option>
+                      <option value="HUMAN_RESOURCES_DEPARTMENT" {% if form.divisi.value == 'HUMAN_RESOURCES_DEPARTMENT' %}selected{% endif %}>HUMAN RESOURCES DEPARTMENT</option>
+                      <option value="ALUMINIUM_PRODUCTION" {% if form.divisi.value == 'ALUMINIUM_PRODUCTION' %}selected{% endif %}>ALUMINIUM PRODUCTION</option>
+                      <option value="BUSINESS_MANUFACTURING_DEVELOPMENT" {% if form.divisi.value == 'BUSINESS_MANUFACTURING_DEVELOPMENT' %}selected{% endif %}>BUSINESS & MANUFACTURING DEVELOPMENT</option>
+                      <option value="ALUMINIUM_PRODUCTION_ENGINEERING" {% if form.divisi.value == 'ALUMINIUM_PRODUCTION_ENGINEERING' %}selected{% endif %}>ALUMINIUM PRODUCTION ENGINEERING</option>
+                  </select>
                 </div>
                 <div class="form-group">
-                    <label for="terendahValue">Terendah value:</label>
-                    <input type="number" class="form-control" id="terendahValue" name="terendahValue" value="{{ form.terendahValue.value }}" step="0.01" title="Gunakan format angka atau desimal (contoh: 97.31)">
+                  <label for="image">Image:</label>
+                  <input type="file" class="form-control-file" value="{{ form.image.value }}" id="image" name="image" required>
                 </div>
-                <!-- TERENDAH  -->
-            
+                <div class="form-group">
+                  <label for="tanggal">Tanggal Upload:</label>
+                  <input type="date" class="form-control" id="tanggal" value="{{ form.tanggal.value }}" name="tanggal" required>
+                </div>
+                <div class="form-group">
+                  <label for="keterangan">keterangan Upload:</label>
+                  <input type="text" class="form-control" id="keterangan" value="{{ form.keterangan.value }}" name="keterangan">
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
               </form>
-              
             </div>            
           </div>
         </div>

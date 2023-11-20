@@ -2,7 +2,8 @@ from django.urls import path, re_path
 from apps.home import views
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import AnnouncementListView, AnnouncementCreateView, AnnouncementUpdateView, AnnouncementDeleteView, AturanListView, AturanCreateView, AturanUpdateView, AturanDeleteView, AturanDownloadView
+from .views import AnnouncementListView, AnnouncementAdminListView, AnnouncementCreateView, AnnouncementUpdateView, AnnouncementDeleteView, AturanListView, AturanCreateView, AturanUpdateView, AturanDeleteView, AturanDownloadView
+
 
 
 # Define URL patterns for your Django application
@@ -41,11 +42,11 @@ urlpatterns = [
     path('home/datakehadiran_delete/<int:pk>/', views.delete_data_kehadiran, name='delete_datakehadiran'),
 
     # Jadwal Bus views
-    path("home/jadwal-bus/", views.jadwal_bus, name="jadwal_bus_list"),
-    path("home/jadwal-bus-admin/", views.jadwal_bus_admin, name="jadwal_bus_admin"),
-    path("home/jadwal-bus/create/", views.jadwal_bus_create, name="jadwal_bus_create"),
-    path("home/jadwal-bus/update/<int:pk>/", views.jadwal_bus_update, name="jadwal_bus_update"),
-    path("home/jadwal-bus/delete/<int:pk>/", views.jadwal_bus_delete, name="jadwal_bus_delete"),
+    path("home/jadwal_bus/", views.jadwal_bus, name="jadwal_bus_list"),
+    path("home/jadwal_bus_admin/", views.jadwal_bus_admin, name="jadwal_bus_admin"),
+    path("home/jadwal_bus/create/", views.jadwal_bus_create, name="jadwal_bus_create"),
+    path("home/jadwal_bus/update/<int:pk>/", views.jadwal_bus_update, name="jadwal_bus_update"),
+    path("home/jadwal_bus/delete/<int:pk>/", views.jadwal_bus_delete, name="jadwal_bus_delete"),
 
     # Menu Kantin views
     path("home/menu_list/", views.menu_list, name="menu_list"),
@@ -56,6 +57,7 @@ urlpatterns = [
  
     path('pengumuman/download/<int:pengumuman_id>/', views.download_file_pengumuman, name='download_file_pengumuman'),
     path('pengumuman/list/', AnnouncementListView.as_view(), name='announcement_list'),
+    path('pengumuman/list_admin/', AnnouncementAdminListView.as_view(), name='announcement_list_admin'),
     path('pengumuman/create/', AnnouncementCreateView.as_view(), name='announcement_create'),
     path('pengumuman/update/<int:pk>/', AnnouncementUpdateView.as_view(), name='announcement_update'),
     path('pengumuman/delete/<int:pk>/', AnnouncementDeleteView.as_view(), name='announcement_delete'),
@@ -89,4 +91,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

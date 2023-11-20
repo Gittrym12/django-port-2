@@ -1191,6 +1191,7 @@ pre {
     
     .table th,
     .table td {
+      font-size: 24px;
       font-weight: bold;
       padding: 1rem;
       vertical-align: center;
@@ -13870,7 +13871,7 @@ textarea[resize="horizontal"] {
 
 .table td,
 .table th {
-  font-size: 0.8125rem;
+  font-size:16px;
   white-space: nowrap; }
 
 .table.align-items-center td,
@@ -18191,9 +18192,6 @@ p {
     max-width: 28.125em;
 }
 
-.open-book article p {
-    text-indent: 2em;
-}
 
 .open-book .chapter-title + p:first-of-type {
     text-indent: 0;
@@ -18268,6 +18266,26 @@ p {
     margin: 1em 0;
 }
 
+.text-quote {
+  font-size: 24px;
+  color: black;
+  text-align: center;
+  font-family: 'Satisfy', cursive;
+}
+.text-sign {
+  font-size: 24px;
+  color: black;
+  text-align: center;
+  font-family: 'Satisfy', cursive;
+}
+.text-list-emp {
+  font-size: 12px;
+  color: black;
+  text-align: left;
+  margin-top: 12px; /* Adjust the value according to your preference */
+}
+
+
 .open-book dl {
     border: solid 0 #ccc;
     border-width: 0.0625em 0;
@@ -18287,7 +18305,7 @@ p {
     }
 
     .open-book:before {
-        background-color: #8B4513;
+        background-color: #172b4d;
         border-radius: 0.25em;
         bottom: -1em;
         content: '';
@@ -18410,10 +18428,6 @@ p {
         height: 0.125em;
     }
 
-    /* Body Copy */
-    .open-book article p {
-        text-indent: 3em;
-    }
 
     .open-book article > ul,
     .open-book article > ol {

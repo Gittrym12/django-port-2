@@ -40,7 +40,7 @@ class JadwalBusM(models.Model):
     id = models.AutoField(primary_key=True)
     titikStart = models.CharField(max_length=30)
     plant = models.CharField(max_length=2)
-    via = models.CharField(max_length=55)
+    via = models.TextField(max_length=255)
     seat = models.IntegerField()
     shift1 = models.CharField(max_length=5, null=True)
     shift2 = models.CharField(max_length=5, null=True)
